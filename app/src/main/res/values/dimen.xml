@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="textSize">14dp</dimen>
+    <dimen name="buttonSize">56dp</dimen>
+    <dimen name="circleWidth">28.5dp</dimen>
+</resources>

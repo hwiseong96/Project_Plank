@@ -9,6 +9,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.ClipData;
@@ -19,7 +21,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Rect;
 import android.opengl.ETC1;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -36,7 +43,9 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -48,7 +57,13 @@ public class MainActivity extends AppCompatActivity {
     private NestedScrollView nestedScrollView;
     public SharedPreferences preferences, preferences2;
     private SimpleDateFormat sdf;
-    String date;
+    private String date;
+    private ViewPager vp;
+    private VPAdapter adapter;
+    TabLayout tabLayout;
+    int year, month, day;
+    private static Handler mHandler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +73,7 @@ public class MainActivity extends AppCompatActivity {
 //        Intent intent = new Intent(this, guide.class);
 //        startActivity(intent);
         preferences = getSharedPreferences("Pref", MODE_PRIVATE);
-        preferences2 = getSharedPreferences("one",MODE_MULTI_PROCESS);
-
-        checkFirstRun();
-        one();
-
-        sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        date = sdf.format(new Date());
-
+        sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
 
         AndroidBug5497Workaround.assistActivity(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -77,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_launcher_background);
 
-        ViewPager vp = findViewById(R.id.viewpager);
-        VPAdapter adapter = new VPAdapter(getSupportFragmentManager());
-        vp.setAdapter(adapter);
+//        checkFirstRun();
+//        one();
 
-        TabLayout tabLayout = findViewById(R.id.tab);
-        tabLayout.setupWithViewPager(vp);
+
+        setVp();
+
 
         drawerLayout = findViewById(R.id.drawer_layout);
         //
@@ -130,23 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void checkFirstRun() {
-        boolean isFirstRun = preferences.getBoolean("isFirstRun", true);
-        if (isFirstRun) {
-            Intent intent = new Intent(this, guide.class);
-            startActivity(intent);
-            preferences.edit().putBoolean("isFirstRun", false).apply();
-        }
-    }
-    public void one() {
-        boolean one = preferences2.getBoolean("isOne", true);
-        if (one) {
-            DBHelper helper = new DBHelper(this);
-            SQLiteDatabase db = helper.getWritableDatabase();
-
-            preferences2.edit().putBoolean("isOne", false).apply();
-        }
-    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -166,31 +157,13 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    public void dbSave() {
-        DBHelper helper = new DBHelper(this);
-        SQLiteDatabase db = helper.getWritableDatabase();
+    public void setVp() {
+        vp = findViewById(R.id.viewpager);
+        adapter = new VPAdapter(getSupportFragmentManager());
+        vp.setAdapter(adapter);
 
-        //메모, n일차, 날짜 ++성공여부 추가
-        String sql1 = "select dateData from HistoryTable where dateData = " + date;
-        Cursor c = db.rawQuery(sql1, null);
-
-        while (c.moveToNext()) {
-            int dateData_pos = c.getColumnIndex("dateData");
-            String dateData = c.getString(dateData_pos);
-            if (!dateData.equals(date)) {
-
-            }
-        }
-
-        String sql = "insert into HistoryTable (textData, intData, dateData) values(?,?,?)";
-
-
-        //? 에 바인딩 될 값 배열
-        String[] arg1 = {"", "", date};
-
-        db.execSQL(sql, arg1);
-
-        db.close();
+        tabLayout = findViewById(R.id.tab);
+        tabLayout.setupWithViewPager(vp);
     }
 
 }

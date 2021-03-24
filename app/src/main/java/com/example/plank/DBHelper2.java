@@ -1,25 +1,25 @@
 package com.example.plank;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelper2 extends SQLiteOpenHelper {
 
-    DBHelper(Context context){
+    DBHelper2(Context context){
 
-        super(context,"memo.db",null, 1);
+        super(context,"difficult.db",null, 1);
 
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        String sql = "create table HistoryTable("
+        String sql = "create table DifficultTable("
                 +"idx integer primary key autoincrement, "
-                +"memoData text, "//메모
-                +"intData integer, "//일차
-                +"dateData date not null"
+                +"textData text, "
+                +"textData2 text "
                 +")";
 
         sqLiteDatabase.execSQL(sql);
@@ -35,9 +35,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
     }
-//    @Override
-//    public void onConfigure(SQLiteDatabase db) {
-//        super.onConfigure(db);
-//        db.disableWriteAheadLogging();
-//    }
+
+
 }

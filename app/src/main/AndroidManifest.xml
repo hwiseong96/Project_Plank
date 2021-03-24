@@ -10,24 +10,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".Alarm"></activity>
-        <activity android:name=".secondTimer" />
-        <activity android:name=".Difficulty" />
-        <activity android:name=".guide" />
-        <activity android:name=".Detail" />
-        <receiver android:name=".AlarmReceiver">
-            <intent-filter>
-                <action android:name="com.example.plank.ALARM_START"/>
-            </intent-filter>
-        </receiver>
-        <activity
-            android:name=".MainActivity"
-            android:windowSoftInputMode="adjustResize">
+        <activity android:name=".Splash"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Alarm" />
+        <activity android:name=".secondTimer" />
+        <activity android:name=".Difficulty" />
+        <activity android:name=".guide" />
+        <activity android:name=".Detail" />
+
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.example.plank.ALARM_START" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustResize">
+
         </activity>
     </application>
 

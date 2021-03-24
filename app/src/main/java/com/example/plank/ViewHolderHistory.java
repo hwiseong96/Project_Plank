@@ -25,7 +25,7 @@ public class ViewHolderHistory extends RecyclerView.ViewHolder {
         nDay = itemView.findViewById(R.id.ilcha);
         plank1 = itemView.findViewById(R.id.PT);
         plank2 = itemView.findViewById(R.id.PT2);
-        memo = itemView.findViewById(R.id.mon);
+        memo = itemView.findViewById(R.id.memo);
 
 
     }
@@ -37,8 +37,7 @@ public class ViewHolderHistory extends RecyclerView.ViewHolder {
         nDay.setText(data.getnDay());
         plank1.setText(data.getPlank1());
         plank2.setText(data.getPlank2());
-
-
+        memo.setText(data.getMemo());
 
     }
 

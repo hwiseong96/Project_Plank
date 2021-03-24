@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
@@ -13,6 +14,8 @@ import android.os.Bundle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -33,14 +36,16 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 
 public class TodayFragment extends Fragment {
-    private View view;
-    private int currentYear, currentMonth, currentDay;
-    private Calendar calendar;
-    private TextView textView;
+
+    private static final String TAG1 = "1";
+    HAdapter adapter;
+    private View view, view2, view3;
+    private TextView textView, textView2, plank1, plank2, memoText, mon, il, ilcha;
     private EditText editText, editText2;
     private NestedScrollView nestedScrollView;
     private SoftKeyboard softKeyboard;
@@ -48,6 +53,16 @@ public class TodayFragment extends Fragment {
     private BroadcastReceiver receiver;
     private Dialog dialog;
     private Button now, save, cancel;
+    private SimpleDateFormat sdf;
+    private String date, diffi;
+    private Calendar calendar, dCalendar, dDaycalendar;
+    private long diffDay;
+    int pro;
+    String textData, textData2;
+    private ConstraintLayout constraintLayout, constraintLayout2;
+    public SharedPreferences preferences, pref;
+
+
 
     public TodayFragment() {
 
@@ -71,9 +86,11 @@ public class TodayFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_today, container, false);
+        view2 = inflater.inflate(R.layout.item_history, container, false);
+        view3 = inflater.inflate(R.layout.fragment_history, container, false);
         ProgressBar progressBar = view.findViewById(R.id.probar);
         progressBar.setIndeterminate(false);
-        progressBar.setProgress(1);
+
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
         Button button = view.findViewById(R.id.detail);
@@ -85,36 +102,85 @@ public class TodayFragment extends Fragment {
             }
         });
 
-        calendar = Calendar.getInstance();
-        currentYear = calendar.get(Calendar.YEAR);
-        currentMonth = (calendar.get(Calendar.MONTH));
-        currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
+        date = sdf.format(new Date());
 
-        textView = view.findViewById(R.id.chall);
+        calendar = Calendar.getInstance();
+        pro = dDay();
+        progressBar.setProgress(pro);
+
+        textView = view.findViewById(R.id.ing);
+        textView.setText(pro + "일차 도전 중");
+        textView2 = view.findViewById(R.id.chall);
+        textView2.setText(diffi + " 30일 챌린지");
+
+        RecyclerView recyclerView = view3.findViewById(R.id.dayRecyc);
+        memoText = view2.findViewById(R.id.memo);
+        adapter = new HAdapter();
+        recyclerView.setAdapter(adapter);
+        constraintLayout2 = view2.findViewById(R.id.memoLayout);
+
+        plank1 = view.findViewById(R.id.pl1);
+        plank2 = view.findViewById(R.id.pl2);
+        constraintLayout = view.findViewById(R.id.s);
+
+        dbPlank();
+
         editText = view.findViewById(R.id.blank);
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             editText.setShowSoftInputOnFocus(false);
-        }else{
+        } else {
 
         }
 
         //editText.setInputType(InputType.TYPE_NULL);
 
+        Button asdd = view.findViewById(R.id.asdd);
+        asdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                DBHelper helper = new DBHelper(getContext());
+                SQLiteDatabase db = helper.getReadableDatabase();
+
+                String sql2 = "select * from HistoryTable";
+
+                Cursor c = db.rawQuery(sql2, null);
+                while(c.moveToNext()){
+
+                    int idx_pos = c.getColumnIndex("idx");
+                    int idx = c.getInt(idx_pos);
+
+                    int dateData_pos = c.getColumnIndex("dateData");
+                    String dateData = c.getString(dateData_pos);
+
+                    int intData_pos = c.getColumnIndex("intData");
+                    int id = c.getInt(intData_pos);
+
+
+                Log.d("bbb",dateData +"#"+idx + "#" +  id);
+                }
+                db.close();
+                pref = getActivity().getSharedPreferences("PrefTest", 0);
+                int asdf = pref.getInt("확인",0);
+                editText.setText(asdf+"aa");
+
+            }
+        });
 
         ll = view.findViewById(R.id.ll);
-        InputMethodManager controlManager = (InputMethodManager)getActivity().getSystemService(Service.INPUT_METHOD_SERVICE);
+        InputMethodManager controlManager = (InputMethodManager) getActivity().getSystemService(Service.INPUT_METHOD_SERVICE);
         softKeyboard = new SoftKeyboard(ll, controlManager);
         nestedScrollView = view.findViewById(R.id.NesScroll);
 
         softKeyboard.setSoftKeyboardCallback(new SoftKeyboard.SoftKeyboardChanged() {
             @Override
             public void onSoftKeyboardHide() {
-                new Handler(Looper.getMainLooper()).post(new Runnable()
-                {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         //키보드 내려왔을때
                     }
                 });
@@ -123,11 +189,9 @@ public class TodayFragment extends Fragment {
 
             @Override
             public void onSoftKeyboardShow() {
-                new Handler(Looper.getMainLooper()).post(new Runnable()
-                {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         nestedScrollView.fullScroll(ScrollView.FOCUS_DOWN);
                         dialog = new Dialog(getContext(), R.style.Dialog);
                         dialog.setContentView(R.layout.memo);
@@ -137,18 +201,46 @@ public class TodayFragment extends Fragment {
                         cancel = dialog.findViewById(R.id.cancel);
                         editText2 = dialog.findViewById(R.id.todayMemo);
 
-                        if(editText.getText().length() != 0){
+                        if (editText.getText().length() != 0) {
                             editText2.setText(editText.getText());
                         }
 
                         save.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                String memo = editText2.getText()+"";
+                                String memo = editText2.getText() + "";
+
+                                String today = sdf.format(new Date());
 
                                 editText.setText(memo);
-//                                Toast.makeText(getContext(), "오늘의 메모가 저장되었습니다!", Toast.LENGTH_SHORT).show();
-                                //dbSave(memo);
+                                if(memo.length() == 0 ){
+                                    constraintLayout2.setVisibility(View.GONE);
+                                }
+
+                                DBHelper helper = new DBHelper(getContext());
+                                SQLiteDatabase db = helper.getReadableDatabase();
+
+                                String sql = "select * from HistoryTable";
+                                Cursor c = db.rawQuery(sql,null);
+
+                                c.moveToLast();
+
+                                int intData_pos = c.getColumnIndex("intData");
+                                int dateData_pos = c.getColumnIndex("dateData");
+
+                                int intData = c.getInt(intData_pos);
+                                String dateData = c.getString(dateData_pos);
+
+                                if(dateData.equals(today) && intData == pro){
+
+                                    constraintLayout2.setVisibility(View.VISIBLE);
+                                    memoText.setText(memo);
+                                    adapter.notifyDataSetChanged();
+                                }
+
+                                Toast.makeText(getContext(), "오늘의 메모가 저장되었습니다!", Toast.LENGTH_SHORT).show();
+                                dbSave(memo);
+
                                 dialog.dismiss();
                             }
                         });
@@ -156,22 +248,6 @@ public class TodayFragment extends Fragment {
                         cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                DBHelper helper = new DBHelper(getContext());
-                                SQLiteDatabase db = helper.getWritableDatabase();
-
-                                String sql = "select * from HistoryTable";
-                                Cursor c = db.rawQuery(sql, null);
-                                while(c.moveToNext()){
-                                    int dateData_pos = c.getColumnIndex("dateData");
-                                    String dateData = c.getString(dateData_pos);
-
-                                    int textData_pos = c.getColumnIndex("textData");
-                                    String textData = c.getString(textData_pos);
-
-                                    Log.d("vvv",textData+"bb"   );
-                                    Log.d("vvvv",dateData+"aa");
-                                }
-
 
                                 dialog.dismiss();
 
@@ -205,32 +281,76 @@ public class TodayFragment extends Fragment {
 
     }
 
-    public void dbSave(String s){
+    public void dbSave(String s) {
         String memo = s;
-        DBHelper helper  = new DBHelper(getContext());
-        SQLiteDatabase db = helper.getWritableDatabase();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String date = sdf.format(new Date());
+        DBHelper helper = new DBHelper(getContext());
+        SQLiteDatabase db = helper.getReadableDatabase();
 
-        String sql1 = "select dateData from HistoryTable";
-        String sql2 = "update HistoryTable set textData = ? where idx = ?";
-        Cursor c = db.rawQuery(sql1, null);
+        date = sdf.format(new Date());
+        String sql = "update HistoryTable set memoData = ? where dateData = ?";
+        String [] args = {memo, date};
 
-        while(c.moveToNext()){
-
-            int dateDate_pos = c.getColumnIndex("dateData");
-
-            if(date.equals(c.getString(dateDate_pos))){
-
-                String []args = {memo, String.valueOf(dateDate_pos)};
-                db.execSQL(sql2, args);
-
-            }
-
-        }
+        db.execSQL(sql, args);
 
         db.close();
+
     }
+
+    public int dDay() {
+        //오늘
+
+        SharedPreferences pref = getActivity().getSharedPreferences("PrefTest", 0);
+        int year = pref.getInt("년", 0);
+        int month = pref.getInt("월", 0);
+        int day = pref.getInt("일", 0);
+        int preMonth = calendar.get(calendar.MONTH) + 1;
+
+        diffi = pref.getString("난이도", "");
+
+        //시작날
+        dCalendar = new GregorianCalendar(year, month, day);
+
+        //오늘
+        dDaycalendar = new GregorianCalendar(calendar.get(calendar.YEAR), preMonth, calendar.get(calendar.DAY_OF_MONTH));
+
+        // 오늘 - 시작날 차이구하기
+        long diffSec = (dDaycalendar.getTimeInMillis() - dCalendar.getTimeInMillis()) / 1000;
+        diffDay = diffSec / (24 * 60 * 60);
+        if (diffDay >= 70000) {
+            diffDay = 0;
+        }
+
+
+        return ((int) diffDay + 1);
+    }
+
+    public void dbPlank() {
+        DBHelper2 helper = new DBHelper2(getContext());
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        String sql = "select * from DifficultTable where idx = " + pro + "";
+        Cursor c = db.rawQuery(sql, null);
+
+        c.moveToFirst();
+
+        int textData_pos = c.getColumnIndex("textData");
+        int textData_pos2 = c.getColumnIndex("textData2");
+
+        textData = c.getString(textData_pos);
+        textData2 = c.getString(textData_pos2);
+
+        plank1.setText(textData);
+        if (textData2 == null) {
+            constraintLayout.setVisibility(View.GONE);
+        } else {
+            constraintLayout.setVisibility(View.VISIBLE);
+            plank2.setText(textData2);
+        }
+        db.close();
+
+    }
+
+
 
 }

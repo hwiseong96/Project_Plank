@@ -2,11 +2,16 @@ package com.example.plank;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -29,7 +34,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 public class Detail extends AppCompatActivity {
 
@@ -38,10 +45,13 @@ public class Detail extends AppCompatActivity {
     private TextView textView, textView2;
     private Calendar calendar, dCalendar, dDaycalendar;
     private int resultNumber = 0;
-    private long diffDay;
     int resetY, resetM, resetD;
+    private long diffDay;
     int pro;
     private Dialog dialog, bottomDialog;
+    private String date;
+    private SimpleDateFormat sdf;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +68,17 @@ public class Detail extends AppCompatActivity {
         ProgressBar progressBar = findViewById(R.id.probar2);
         progressBar.setIndeterminate(false);
 
+        sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
+
         createButton();
         pro = dDay();
 
         //달성버튼
         for(int i = 0 ; i < pro; i++){
-
-            b[i].setBackgroundColor(R.drawable.now);
-            b[i].setBackgroundResource(R.drawable.ic_coolicon);
+            if(pro < 31){
+                b[i].setBackgroundColor(R.drawable.now);
+                b[i].setBackgroundResource(R.drawable.ic_coolicon);
+            }
 
         }
 
@@ -92,6 +105,7 @@ public class Detail extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 dialog = new Dialog(Detail.this, R.style.Dialog);
 
                 dialog.setContentView(R.layout.modal);
@@ -102,7 +116,6 @@ public class Detail extends AppCompatActivity {
                     public void onClick(View view) {
                         //dCalendar.add(Calendar.DAY_OF_MONTH, 30);
                         Calendar calendar = Calendar.getInstance();
-
 
                         SharedPreferences pref = getSharedPreferences("PrefTest",0);
                         SharedPreferences.Editor edit = pref.edit();
@@ -115,12 +128,18 @@ public class Detail extends AppCompatActivity {
                         edit.putInt("월",resetM);
                         edit.putInt("일",resetD);
                         edit.commit();
-                        dialog.dismiss();
 
+                        delete();
+
+                        Intent intent = new Intent(view.getContext(),MainActivity.class);
+                        startActivity(intent);
+
+                        dialog.dismiss();
                     }
                 });
 
                 no = dialog.findViewById(R.id.notReset);
+
                 no.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -129,11 +148,8 @@ public class Detail extends AppCompatActivity {
                     }
                 });
 
-
             }
         });
-
-
     }
 
     @Override
@@ -145,7 +161,6 @@ public class Detail extends AppCompatActivity {
                 return true;
             }
         }
-
 
         return super.onOptionsItemSelected(item);
     }
@@ -164,12 +179,13 @@ public class Detail extends AppCompatActivity {
         //오늘
         calendar = Calendar.getInstance();
 
-        SharedPreferences pref = getSharedPreferences("PrefTest", 0);
+        pref = getSharedPreferences("PrefTest", 0);
         int year = pref.getInt("년",0);
         int month = pref.getInt("월",0);
         int day = pref.getInt("일",0);
         int preMonth = calendar.get(calendar.MONTH)+1;
 
+        date = year+"-"+month+"-"+day;
         //시작날
         dCalendar = new GregorianCalendar(year,month,day);
 
@@ -179,9 +195,40 @@ public class Detail extends AppCompatActivity {
         long diffSec = (dDaycalendar.getTimeInMillis()- dCalendar.getTimeInMillis())/1000;
         diffDay = diffSec /  (24 * 60 * 60);
 
-
         return ((int)diffDay+1);
     }
+
+    public void one() {
+        String today = sdf.format(new Date());
+
+        if (!date.equals(today)) {
+            date = sdf.format(new Date());
+
+            DBHelper helper = new DBHelper(this);
+            SQLiteDatabase db = helper.getWritableDatabase();
+            Log.d("todtjd","디테일생성");
+            String sql = "insert into HistoryTable (memoData,intData, dateData) values(?,?,?)";
+            String[] arg1 = {null, "1",date};
+            db.execSQL(sql, arg1);
+            db.close();
+
+        }
+    }
+    public void delete(){
+
+        DBHelper helper = new DBHelper(this);
+        SQLiteDatabase db = helper.getReadableDatabase();
+        date = sdf.format(new Date());
+        String sql = "delete from HistoryTable where 1 < idx";
+        db.execSQL(sql);
+
+        String sql2 = "update HistoryTable set dateData = ? , memoData = null where idx = 1";
+        String []arg = {date};
+        db.execSQL(sql2,arg);
+        db.close();
+
+    }
+
 
 
 

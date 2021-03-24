@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#E5E5E5"
     tools:context=".HistoryFragment">
 
 
@@ -13,9 +13,6 @@
         android:layout_height="match_parent"
         android:id="@+id/dayRecyc"
         />
-
-
-
 
 
 </androidx.core.widget.NestedScrollView>

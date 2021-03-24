@@ -1,118 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content"
+    >
 
     <LinearLayout
-        android:background="@drawable/now"
         android:id="@+id/month"
         android:layout_width="60dp"
         android:layout_height="66dp"
-        android:orientation="vertical"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:background="@drawable/now"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
             android:id="@+id/mon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="13dp"
-            android:layout_width="20dp"
-            android:layout_height="16dp"
-            android:layout_marginStart="20dp"
-            android:textColor="@android:color/white"
-            android:text="N월"/>
+            android:text="N월"
+            android:textColor="#BCC1CD" />
+
         <TextView
             android:id="@+id/il"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="18dp"
-            android:layout_width="24dp"
+            android:layout_width="wrap_content"
             android:layout_height="18dp"
-            android:textColor="@android:color/white"
-            android:text="N일"/>
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="N일"
+            android:textColor="#333333" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="66dp"
-        app:layout_constraintStart_toEndOf="@id/month"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="24dp"
         android:layout_marginStart="23dp"
+        android:layout_marginTop="24dp"
         android:orientation="vertical"
-        >
+        app:layout_constraintStart_toEndOf="@id/month"
+        app:layout_constraintTop_toTopOf="parent">
+
         <TextView
-            android:layout_marginTop="13dp"
             android:layout_width="150dp"
             android:layout_height="16dp"
-            android:textColor="#9B9B9B"
-            android:text="초급 30일 챌린지 도전중"/>
+            android:layout_marginTop="13dp"
+            android:text="초급 30일 챌린지 도전중"
+            android:textColor="#9B9B9B" />
+
         <TextView
             android:id="@+id/ilcha"
-            android:layout_marginTop="5dp"
             android:layout_width="150dp"
             android:layout_height="18dp"
-            android:textColor="#212525"
-            android:text="N일차"/>
+            android:layout_marginTop="5dp"
+            android:text="N일차"
+            android:textColor="#212525" />
 
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/month"
         android:layout_marginStart="54dp"
         android:layout_marginTop="7dp"
         android:layout_marginEnd="18dp"
-        android:background="@drawable/line">
+        android:background="@drawable/line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/month">
+
         <androidx.constraintlayout.widget.ConstraintLayout
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
+            android:id="@+id/sf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="55dp"
-            android:layout_height="wrap_content">
+            android:layout_marginEnd="19dp"
+            android:background="@drawable/now"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/ment"
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"
                 android:text="성공"
-                android:textSize="14dp"
                 android:textColor="#4F4F4F"
-                />
+                android:textSize="14dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                 android:id="@+id/check1"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                app:layout_constraintTop_toBottomOf="@id/ment"
+                android:layout_marginStart="19dp"
+                android:src="@drawable/ic_launcher_foreground"
                 app:layout_constraintStart_toStartOf="parent"
-                android:src="@drawable/ic_launcher_foreground"/>
+                app:layout_constraintTop_toBottomOf="@id/ment" />
+
             <TextView
                 android:id="@+id/PT"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
+                android:layout_marginStart="10dp"
+                android:text="\@@@ 플랭크 30초"
                 app:layout_constraintStart_toEndOf="@id/check1"
-                app:layout_constraintTop_toBottomOf="@id/ment"
-                android:text="\@@@ 플랭크 30초"/>
+                app:layout_constraintTop_toBottomOf="@id/ment" />
+
             <ImageView
                 android:id="@+id/check2"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
+                android:layout_marginStart="19dp"
+                android:src="@drawable/ic_launcher_foreground"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/check1"
-                android:src="@drawable/ic_launcher_foreground"/>
+                app:layout_constraintTop_toBottomOf="@id/check1" />
+
             <TextView
                 android:id="@+id/PT2"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
-                app:layout_constraintTop_toBottomOf="@id/PT"
-                app:layout_constraintStart_toEndOf="@id/check2"
+                android:layout_marginStart="10dp"
                 android:text="\@@@ 플랭크 30초"
-                />
+                android:layout_marginBottom="16dp"
+                app:layout_constraintStart_toEndOf="@id/check2"
+                app:layout_constraintTop_toBottomOf="@id/PT"
+                app:layout_constraintBottom_toBottomOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/memoLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginEnd="19dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/now"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sf">
+
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/memo"
+                android:gravity="center_vertical"
+                android:padding="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

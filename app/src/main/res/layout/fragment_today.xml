@@ -11,6 +11,7 @@
     android:id="@+id/NesScroll"
     tools:context=".TodayFragment">
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/beginner"
+                android:id="@+id/chall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -51,14 +52,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/chall"
+                android:id="@+id/ing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp"
                 android:layout_marginTop="4dp"
                 android:text="도전 중"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/beginner" />
+                app:layout_constraintTop_toBottomOf="@id/chall" />
 
             <ProgressBar
                 android:id="@+id/probar"
@@ -123,22 +124,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:layout_marginStart="14dp"
-                    android:layout_marginTop="19dp"
                     android:text="플랭크1"
                     android:textColor="#0A0909"
                     android:textSize="15dp"
                     app:layout_constraintStart_toEndOf="@id/second"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="17dp"
-                    android:text="완료"
-                    app:layout_constraintStart_toEndOf="@id/second"
-                    app:layout_constraintTop_toBottomOf="@id/pl1" />
+
 
                 <ImageView
                     android:layout_width="17.68dp"
@@ -149,8 +142,6 @@
                     android:src="@drawable/ic_launcher_foreground"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -181,23 +172,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:layout_marginStart="14dp"
-                    android:layout_marginTop="19dp"
+
                     android:text="플랭크1"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#0A0909"
                     android:textSize="15dp"
                     app:layout_constraintStart_toEndOf="@id/second2"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:layout_marginStart="14dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="17dp"
-                    android:text="완료"
-                    app:layout_constraintStart_toEndOf="@id/second2"
-                    app:layout_constraintTop_toBottomOf="@id/pl2" />
-
                 <ImageView
                     android:layout_width="17.68dp"
                     android:layout_height="13.43dp"
@@ -214,7 +195,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/now"
+
                 android:text="지금 운동하기!"
                 android:textColor="#FFFFFF"
                 android:textSize="14dp"
@@ -242,7 +223,7 @@
                 android:padding="16dp"
                 android:textSize="14dp"
                 android:id="@+id/blank"
-                android:maxLength="50"
+
                 app:layout_constraintTop_toBottomOf="@+id/memo" />
             <TextView
                 android:layout_width="66dp"
@@ -251,11 +232,21 @@
                 android:textColor="#f8f8f6"
                 app:layout_constraintTop_toBottomOf="@id/blank"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/len"
                 android:gravity="end"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/asdd"
+                app:layout_constraintEnd_toStartOf="@+id/len"
+                app:layout_constraintTop_toBottomOf="@id/blank"/>
+
+
 
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.core.widget.NestedScrollView>

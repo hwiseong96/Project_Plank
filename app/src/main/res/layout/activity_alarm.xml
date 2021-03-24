@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            app:layout_scrollFlags="enterAlways|scroll">
+            >
 
             <TextView
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"

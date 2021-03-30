@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class VPAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> items;
     private ArrayList<String> itext = new ArrayList<String>();
+    private FragmentManager mFM;
 
     @Nullable
     @Override
@@ -20,6 +21,7 @@ public class VPAdapter extends FragmentPagerAdapter {
 
     public VPAdapter(@NonNull FragmentManager fm) {
         super(fm);
+        mFM = fm;
         items = new ArrayList<Fragment>();
         items.add(new TodayFragment());
         items.add(new HistoryFragment());
@@ -37,5 +39,14 @@ public class VPAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return items.size();
+    }
+
+    public FragmentManager getFM() {
+        return mFM;
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
     }
 }

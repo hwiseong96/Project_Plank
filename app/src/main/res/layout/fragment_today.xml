@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/NesScroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
     app:layout_scrollFlags="enterAlways|scroll"
-    android:id="@+id/NesScroll"
     tools:context=".TodayFragment">
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/BG_Gray">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/today1"
@@ -24,8 +23,7 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="34dp"
             android:layout_marginEnd="28dp"
-
-            android:background="@color/challenge"
+            android:background="@drawable/now"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -33,8 +31,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/nexonlv1gothicregular"
                 android:paddingLeft="16dp"
                 android:text="초급 30일 챌린지"
+                android:textFontWeight="700"
                 android:textSize="18dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -42,12 +42,17 @@
             <Button
                 android:id="@+id/detail"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="26dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="28dp"
-                android:gravity="center_horizontal"
+                android:fontFamily="@font/nexonlv1gothicregular"
+                android:gravity="center"
                 android:text="자세히 >"
+                android:textFontWeight="700"
                 android:textSize="13dp"
+                android:stateListAnimator="@null"
+                android:background="@drawable/now"
+                android:textColor="@color/Green"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,8 +60,9 @@
                 android:id="@+id/ing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/nexon_normal"
+                android:paddingLeft="16dp"
                 android:text="도전 중"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/chall" />
@@ -65,17 +71,18 @@
                 android:id="@+id/probar"
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="8dp"
                 android:layout_marginStart="19dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="19dp"
-                android:layout_marginBottom="26dp"
+                android:layout_marginBottom="23dp"
                 android:max="30"
-                android:progress="0"
+                android:progress="10"
+                android:progressDrawable="@drawable/progress_horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/chall" />
+                app:layout_constraintTop_toBottomOf="@id/ing" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -91,9 +98,11 @@
 
             <TextView
                 android:id="@+id/goal"
-                android:layout_width="66dp"
+                android:layout_width="wrap_content"
                 android:layout_height="23dp"
-                android:text="오늘 목표"
+                android:fontFamily="@font/nexonlv1gothicregular"
+                android:text="오늘의 운동"
+                android:textFontWeight="700"
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -103,7 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/goalitem"
+                android:background="@drawable/now"
                 app:layout_constraintTop_toBottomOf="@+id/goal">
 
                 <TextView
@@ -114,6 +123,7 @@
                     android:layout_marginTop="11dp"
                     android:layout_marginBottom="11dp"
                     android:background="@drawable/seconditem"
+                    android:fontFamily="@font/nexon_normal"
                     android:gravity="center"
                     android:text="30초"
                     app:layout_constraintStart_toStartOf="parent"
@@ -124,16 +134,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:layout_marginStart="14dp"
+                    android:fontFamily="@font/nexon_normal"
                     android:text="플랭크1"
                     android:textColor="#0A0909"
                     android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/second"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
-
-
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/iv1"
                     android:layout_width="17.68dp"
                     android:layout_height="13.43dp"
                     android:layout_marginTop="29.28dp"
@@ -151,7 +161,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/goalitem"
+                android:background="@drawable/now"
                 app:layout_constraintTop_toBottomOf="@+id/f">
 
                 <TextView
@@ -162,6 +172,7 @@
                     android:layout_marginTop="11dp"
                     android:layout_marginBottom="11dp"
                     android:background="@drawable/seconditem"
+                    android:fontFamily="@font/nexon_normal"
                     android:gravity="center"
                     android:text="30초"
                     app:layout_constraintStart_toStartOf="parent"
@@ -172,14 +183,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="17dp"
                     android:layout_marginStart="14dp"
-
+                    android:fontFamily="@font/nexon_normal"
                     android:text="플랭크1"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="#0A0909"
                     android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@id/second2"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageView
+                    android:id="@+id/iv2"
                     android:layout_width="17.68dp"
                     android:layout_height="13.43dp"
                     android:layout_marginTop="29.28dp"
@@ -192,57 +205,61 @@
 
             <Button
                 android:id="@+id/now"
+                android:tag="now"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="16dp"
-
+                android:fontFamily="@font/nexonlv1gothicregular"
                 android:text="지금 운동하기!"
                 android:textColor="#FFFFFF"
+                android:textFontWeight="700"
                 android:textSize="14dp"
+                android:background="@drawable/greenbtn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/s" />
 
             <TextView
                 android:id="@+id/memo"
-                android:layout_width="66dp"
+                android:layout_width="wrap_content"
                 android:layout_height="23dp"
                 android:layout_marginTop="49dp"
-                android:text="오늘 메모"
+                android:fontFamily="@font/nexonlv1gothicregular"
+                android:text="오늘의 메모"
+                android:textFontWeight="700"
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/now" />
 
 
             <EditText
+                android:id="@+id/blank"
                 android:layout_width="match_parent"
                 android:layout_height="91dp"
                 android:layout_marginTop="11dp"
                 android:background="@drawable/memo"
+                android:fontFamily="@font/nexon_normal"
                 android:gravity="top"
                 android:hint="오늘의 운동 스토리를 작성하세요!"
                 android:padding="16dp"
                 android:textSize="14dp"
-                android:id="@+id/blank"
-
                 app:layout_constraintTop_toBottomOf="@+id/memo" />
+
             <TextView
+                android:id="@+id/len"
                 android:layout_width="66dp"
                 android:layout_height="17dp"
+                android:gravity="end"
                 android:text="0 / 100"
                 android:textColor="#f8f8f6"
-                app:layout_constraintTop_toBottomOf="@id/blank"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:id="@+id/len"
-                android:gravity="end"/>
+                app:layout_constraintTop_toBottomOf="@id/blank" />
+
             <Button
+                android:id="@+id/asdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/asdd"
                 app:layout_constraintEnd_toStartOf="@+id/len"
-                app:layout_constraintTop_toBottomOf="@id/blank"/>
-
-
-
+                app:layout_constraintTop_toBottomOf="@id/blank" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

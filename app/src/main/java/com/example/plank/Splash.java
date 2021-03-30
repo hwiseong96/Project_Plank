@@ -1,7 +1,5 @@
 package com.example.plank;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,17 +9,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class Splash extends Activity {
     public SharedPreferences preferences, pref;
     private String date;
     private SimpleDateFormat sdf;
-    SharedPreferences.Editor edit;
     boolean a = true;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +40,12 @@ public class Splash extends Activity {
         public void run() {
 
             boolean stop = preferences.getBoolean("stop", true);
-            if(stop){
+            if (stop) {
                 checkFirstRun();
                 preferences.edit().putBoolean("stop", false).apply();
-            }else{
+            } else {
                 one();
-               // dbUpdate();
+                // dbUpdate();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
@@ -73,8 +72,6 @@ public class Splash extends Activity {
 
     public void one() {
         String today = sdf.format(new Date());
-//
-//        if (!date.equals(today)) {
 
         date = sdf.format(new Date());
         DBHelper helper = new DBHelper(this);
@@ -85,22 +82,65 @@ public class Splash extends Activity {
         c.moveToLast();
 
         int dateData_pos = c.getColumnIndex("dateData");
-        String dateData = c.getString(dateData_pos);
         int intData_pos = c.getColumnIndex("intData");
-        int intData = c.getInt(intData_pos);
-        String dDay = Integer.toString(intData + 1);
+        int intData2_pos = c.getColumnIndex("intData2");
+        int ClearData_pos = c.getColumnIndex("ClearData");
 
-        int year = pref.getInt("년",0);
-        int month = pref.getInt("월",0);
-        int day = pref.getInt("일",0);
-        String start = year +"-" + month + "-" +day;
-        if(!today.equals(dateData)){
-            String sql2 = "insert into HistoryTable (memoData, intData, dateData) values(?,?,?)";
-            String[] arg1 = {null, dDay, date};
-            dbRead.execSQL(sql2, arg1);
+        String dateData = c.getString(dateData_pos);
+        int intData = c.getInt(intData_pos);
+        int intData2 = c.getInt(intData2_pos);
+        Boolean Clear = (c.getInt(ClearData_pos) == 0);
+
+        String yester = Integer.toString(intData2);
+
+        int year = pref.getInt("년", 0);
+        int month = pref.getInt("월", 0);
+        int day = pref.getInt("일", 0);
+        String start = year + "-" + month + "-" + day;
+        long diffiDay = 0;
+        if (!dateData.equals(today)) {
+            try {
+                Date lastDate = sdf.parse(dateData);
+                Date todayDate = sdf.parse(today);
+                diffiDay = (todayDate.getTime() - lastDate.getTime() ) / (24 * 60 * 60 * 1000);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        if (Clear == true) {
+            yester = Integer.toString(intData2 + 1);
+        }
+        Log.d("aaaa",diffiDay+"");
+        String []last = date.split("-");
+
+        int lastYear = Integer.parseInt(last[0]);
+        int lastMonth = Integer.parseInt(last[1]) - 1;
+        int lastDay = Integer.parseInt(last[2]);
+
+        Calendar cal = Calendar.getInstance();
+
+
+        if (!today.equals(dateData)) {
+            int dif = (int)diffiDay;
+            int j = 0;
+            for (int i = 0; i < (int)diffiDay; i++) {
+                j++;
+                dif--;
+                cal.set(lastYear, lastMonth, lastDay);
+                Log.d("aaaaa",sdf.format(cal.getTime()));
+                cal.add(Calendar.DATE,dif * -1);
+
+                date = sdf.format(cal.getTime());
+                String dDay = Integer.toString(intData+j);
+                Log.d("aaaa",date + "#" + yester + "#" +dDay);
+                String sql2 = "insert into HistoryTable (memoData, intData, intData2, dateData) values(?,?,?,?)";
+                String[] arg1 = {null, dDay, yester, date};
+                dbRead.execSQL(sql2, arg1);
+
+            }
             dbRead.close();
-        }else if(start.equals(dateData)){
-            Log.d("EJfk","wha");
+        } else if (start.equals(dateData)) {
             dbRead.close();
         }
     }

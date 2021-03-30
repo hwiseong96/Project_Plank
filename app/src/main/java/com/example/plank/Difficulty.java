@@ -2,7 +2,6 @@ package com.example.plank;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -45,6 +43,7 @@ public class Difficulty extends AppCompatActivity {
                 edit.putInt("월", month);
                 edit.putInt("일", day);
                 edit.putString("난이도", "초급");
+                //edit.putInt("플랭크",1);
                 sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
                 date = sdf.format(new Date());
 
@@ -66,8 +65,6 @@ public class Difficulty extends AppCompatActivity {
 
         DBHelper2 helper2 = new DBHelper2(this);
         SQLiteDatabase db2 = helper2.getWritableDatabase();
-        Log.d("todtjd","디피컬티생성");
-
 
         String sql = "insert into DifficultTable (textData, textData2) values(?,?)";
 
@@ -114,8 +111,8 @@ public class Difficulty extends AppCompatActivity {
         DBHelper helper = new DBHelper(this);
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String sql = "insert into HistoryTable (memoData,intData, dateData) values(?,?,?)";
-        String[] arg1 = {null,"1", date};
+        String sql = "insert into HistoryTable (memoData, intData, intData2, dateData) values(?,?,?,?)";
+        String[] arg1 = {null,"1","1", date};
         db.execSQL(sql, arg1);
         db.close();
     }

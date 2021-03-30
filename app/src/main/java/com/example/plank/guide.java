@@ -1,15 +1,12 @@
 package com.example.plank;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,8 +18,6 @@ import android.widget.ViewFlipper;
 
 import com.google.android.material.tabs.TabLayout;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +27,7 @@ public class guide extends AppCompatActivity {
     private TextView textView, textView2, textView3;
     private TabLayout tabLayout;
     public SharedPreferences preferences2;
-    Button button;
-    private ViewFlipper flipper, flipper2;
+    private ViewFlipper flipper;
     private ViewPager pager;
     public static int countIndexes = 3;
     final int[] currentIndex = {0};
@@ -106,10 +100,8 @@ public class guide extends AppCompatActivity {
 
             }
         });
-
         tabLayout = findViewById(R.id.onboardTL);
         tabLayout.setupWithViewPager(pager, true);
-
     }
 
     public void OnClick(View view) {

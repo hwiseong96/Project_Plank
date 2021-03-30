@@ -9,7 +9,6 @@
         android:thickness="28.5dp"
         android:useLevel="true">
 
-
         <solid android:color="#1BD15D"/>
 
 

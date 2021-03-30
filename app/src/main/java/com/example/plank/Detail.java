@@ -1,27 +1,14 @@
 package com.example.plank;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.GridLayout;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -169,7 +156,7 @@ public class Detail extends AppCompatActivity {
         for (int i = 0; i < 30; i++) {
 
             b[i] = findViewById(getResources().getIdentifier("btn" + (i + 1), "id", getPackageName()));
-            b[i].setBackgroundResource(R.drawable.item);
+            b[i].setBackgroundResource(R.drawable.now);
             b[i].setText((i + 1) + "일차");
 
         }
@@ -198,22 +185,6 @@ public class Detail extends AppCompatActivity {
         return ((int)diffDay+1);
     }
 
-    public void one() {
-        String today = sdf.format(new Date());
-
-        if (!date.equals(today)) {
-            date = sdf.format(new Date());
-
-            DBHelper helper = new DBHelper(this);
-            SQLiteDatabase db = helper.getWritableDatabase();
-            Log.d("todtjd","디테일생성");
-            String sql = "insert into HistoryTable (memoData,intData, dateData) values(?,?,?)";
-            String[] arg1 = {null, "1",date};
-            db.execSQL(sql, arg1);
-            db.close();
-
-        }
-    }
     public void delete(){
 
         DBHelper helper = new DBHelper(this);
@@ -222,7 +193,7 @@ public class Detail extends AppCompatActivity {
         String sql = "delete from HistoryTable where 1 < idx";
         db.execSQL(sql);
 
-        String sql2 = "update HistoryTable set dateData = ? , memoData = null where idx = 1";
+        String sql2 = "update HistoryTable set dateData = ? , ClearData = 1, boolData = 1, boolData2 = 1, memoData = null where idx = 1";
         String []arg = {date};
         db.execSQL(sql2,arg);
         db.close();

@@ -4,4 +4,6 @@
     <dimen name="textSize">14dp</dimen>
     <dimen name="buttonSize">56dp</dimen>
     <dimen name="circleWidth">28.5dp</dimen>
+    <dimen name="fontWeight4">400</dimen>
+    <dimen name="fontWeight7">700</dimen>
 </resources>

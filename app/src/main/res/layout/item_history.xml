@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     >
 
     <LinearLayout
@@ -77,6 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="55dp"
             android:layout_marginEnd="19dp"
+            android:paddingBottom="16dp"
             android:background="@drawable/now"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -100,9 +102,11 @@
                 android:layout_marginStart="19dp"
                 android:src="@drawable/ic_launcher_foreground"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ment" />
+                app:layout_constraintTop_toTopOf="@id/PT"
+                app:layout_constraintBottom_toBottomOf="@id/PT"/>
 
             <TextView
+                android:layout_marginTop="14dp"
                 android:id="@+id/PT"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
@@ -118,18 +122,32 @@
                 android:layout_marginStart="19dp"
                 android:src="@drawable/ic_launcher_foreground"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/check1" />
+                app:layout_constraintTop_toTopOf="@id/PT2"
+                app:layout_constraintBottom_toBottomOf="@id/PT2" />
 
             <TextView
                 android:id="@+id/PT2"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="11dp"
                 android:text="\@@@ 플랭크 30초"
-                android:layout_marginBottom="16dp"
                 app:layout_constraintStart_toEndOf="@id/check2"
-                app:layout_constraintTop_toBottomOf="@id/PT"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/PT" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/PT2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="13dp"
+                android:id="@+id/hisBtn"
+
+                android:text="운동 시작하기"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

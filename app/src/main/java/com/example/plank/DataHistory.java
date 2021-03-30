@@ -1,20 +1,38 @@
 package com.example.plank;
 
 public class DataHistory {
-    int image;
+    int image, image2;
     String month, day, nDay, plank1, plank2, memo;
+    boolean clear;
 
-    DataHistory(String month, String day, String nDay, String plank1, String plank2, String memo, int image) {
+
+    DataHistory(String month, String day, String nDay, String plank1, String plank2, String memo, int image, int image2, Boolean clear) {
+        this.image = image;
+        this.image2 = image2;
         this.day = day;
         this.month = month;
         this.nDay = nDay;
         this.plank1 = plank1;
         this.plank2 = plank2;
         this.memo = memo;
-        this.image = image;
+        this.clear =clear;
     }
 
+    public int getImage2() {
+        return image2;
+    }
 
+    public void setImage2(int image2) {
+        this.image2 = image2;
+    }
+
+    public boolean isClear() {
+        return clear;
+    }
+
+    public void setClear(boolean clear) {
+        this.clear = clear;
+    }
     public int getImage() {
         return image;
     }

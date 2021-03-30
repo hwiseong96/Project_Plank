@@ -6,19 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".secondTimer">
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:fitsSystemWindows="true">
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/appbar"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@android:color/white"-->
+<!--        android:fitsSystemWindows="true">-->
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            />
-    </com.google.android.material.appbar.AppBarLayout>
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="56dp"-->
+<!--            />-->
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="286dp"
                 android:layout_height="286dp"
-                android:max="10"
+                android:max="40"
                 android:background="@drawable/circle"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:id="@+id/circle"
@@ -82,16 +82,18 @@
                 android:background="@drawable/vector_l3x"
                 app:layout_constraintEnd_toStartOf="@+id/start"
                 app:layout_constraintTop_toBottomOf="@id/imgPlank"/>
+
             <Button
-                android:gravity="center"
                 android:id="@+id/start"
                 android:layout_width="109dp"
                 android:layout_height="109dp"
                 android:layout_marginTop="60dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:background="@drawable/pause_3x"
-                app:layout_constraintTop_toBottomOf="@id/imgPlank"/>
+                android:gravity="center"
+                android:onClick="btnMethod"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgPlank" />
             <Button
                 android:layout_width="28.84dp"
                 android:layout_height="28.12dp"

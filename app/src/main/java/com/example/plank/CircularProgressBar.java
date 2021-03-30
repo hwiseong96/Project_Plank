@@ -26,10 +26,10 @@ public class CircularProgressBar extends View {
     private float mMaxSweepAngle = 360;         // Max degrees to sweep = full circle
     private int mStrokeWidth = (int) getResources().getDimension(R.dimen.circleWidth);              // Width of outline
     private int mAnimationDuration = 1000;       // Animation duration for progress change
-    private int mMaxProgress = 10;             // Max progress to use
+    int mMaxProgress = 10;             // Max progress to use
     private boolean mDrawText = false;           // Set to true if progress text should be drawn
     private boolean mRoundedCorners = true;     // Set to true if rounded corners should be applied to outline ends
-    private int mProgressColor = getResources().getColor(R.color.circle);   // Outline color
+    private int mProgressColor = getResources().getColor(R.color.Green);   // Outline color
     private int mTextColor = Color.BLACK;       // Progress text color
 
     private final Paint mPaint;                 // Allocate paint outside onDraw to avoid unnecessary object creation
@@ -45,6 +45,10 @@ public class CircularProgressBar extends View {
     public CircularProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    }
+
+    public void CircularProgressBar(int max){
+        this.mMaxProgress = max;
     }
 
     @Override

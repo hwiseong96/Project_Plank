@@ -1,77 +1,56 @@
 package com.example.plank;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.ClipData;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Rect;
-import android.opengl.ETC1;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
-    private Context context = this;
-    Button button;
-    private EditText editText;
-    private NestedScrollView nestedScrollView;
     public SharedPreferences preferences, preferences2;
     private SimpleDateFormat sdf;
     private String date;
     private ViewPager vp;
     private VPAdapter adapter;
+    private FloatingActionButton fab;
     TabLayout tabLayout;
-    int year, month, day;
-    private static Handler mHandler;
-
+    HistoryFragment historyFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Intent intent = new Intent(this, guide.class);
-//        startActivity(intent);
         preferences = getSharedPreferences("Pref", MODE_PRIVATE);
         sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
 
@@ -85,15 +64,60 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_launcher_background);
 
-//        checkFirstRun();
-//        one();
+        vp = findViewById(R.id.viewpager);
+        adapter = new VPAdapter(getSupportFragmentManager());
+        vp.setAdapter(adapter);
 
+        fab = findViewById(R.id.fab);
+        fab.setVisibility(View.INVISIBLE);
 
-        setVp();
+        historyFragment = new HistoryFragment();
 
+        vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+
+                        fab.setVisibility(View.INVISIBLE);
+                        break;
+
+                    default:
+                        fab.animate().translationY(fab.getHeight() + 60).setInterpolator(new AccelerateInterpolator(0)).start();
+                        fab.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.commit();
+
+                historyFragment = (HistoryFragment)adapter.getItem(1);
+                historyFragment.up();
+
+            }
+        });
+
+        tabLayout = findViewById(R.id.tab);
+        tabLayout.setupWithViewPager(vp);
 
         drawerLayout = findViewById(R.id.drawer_layout);
-        //
+
         final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -103,9 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -133,12 +155,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.bug:
                 break;
-
         }
-
     }
-
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
 
@@ -157,13 +175,18 @@ public class MainActivity extends AppCompatActivity {
         return super.dispatchTouchEvent(ev);
     }
 
-    public void setVp() {
-        vp = findViewById(R.id.viewpager);
-        adapter = new VPAdapter(getSupportFragmentManager());
-        vp.setAdapter(adapter);
+    public void setFragment(String name) {
+        switch (name) {
+            case "refresh":
+                vp.setAdapter(adapter);
+                break;
+            case "up":
+                fab.animate().translationY(fab.getHeight() + 60).setInterpolator(new AccelerateInterpolator(2)).start();
+                break;
 
-        tabLayout = findViewById(R.id.tab);
-        tabLayout.setupWithViewPager(vp);
+            case "down":
+                fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
+                break;
+        }
     }
-
 }

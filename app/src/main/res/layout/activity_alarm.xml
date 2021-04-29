@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".Alarm">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -16,8 +17,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            >
+            android:layout_height="56dp">
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
@@ -25,114 +25,192 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="56dp">
+        android:layout_marginTop="56dp"
+        android:background="#FFFFFF">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="언제 플랭크를 하실건가요?"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:id="@+id/when"
-            android:gravity="center"
-            />
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/nexonlv1gothicregular"
             android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="언제 플랭크를 하실건가요?"
+            android:textFontWeight="700"
+            android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/when"
-            android:text="설명 설명 설명\n 알람을 보내드릴게요"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
             android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            />
-        <TimePicker
-            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/nexon_normal"
+            android:gravity="center"
+            android:text="설명 설명 설명\n 알람을 보내드릴게요"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/when" />
+
+        <TimePicker
+            android:id="@+id/picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:timePickerMode="spinner"
-            android:id="@+id/picker"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="horizontal"
             android:id="@+id/week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="34dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/picker">
 
-            <CheckBox
+            <com.example.plank.checkbox
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:id="@+id/sun"
-                android:text="일"/>
-            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="일"
+                android:textSize="14dp" />
+
+            <com.example.plank.checkbox
+
                 android:id="@+id/mon"
-                android:text="월"/>
-            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="월"
+                android:textSize="14dp" />
+
+            <com.example.plank.checkbox
+
                 android:id="@+id/tue"
-                android:text="화"/>
-            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="화"
+                android:textSize="14dp" />
+
+            <com.example.plank.checkbox
+
                 android:id="@+id/wed"
-                android:text="수"/>
-            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="수"
+                android:textSize="14dp" />
+
+            <com.example.plank.checkbox
+
                 android:id="@+id/thu"
-                android:text="목"/>
-            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="목"
+                android:textSize="14dp" />
+
+            <com.example.plank.checkbox
+
                 android:id="@+id/fri"
-                android:text="금"/>
-            <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="금"
+                android:textSize="14dp" />
+
+            <com.example.plank.checkbox
+
                 android:id="@+id/sat"
-                android:text="토"/>
-            
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="토"
+                android:textSize="14dp" />
         </LinearLayout>
-        
+
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/itsok"
-            android:text="알림 없어도 괜찮아요"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/week"/>
-        <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/completion"
-            android:text="모든 설정 완료!"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/greenlinebtn"
+            android:fontFamily="@font/nexon_normal"
+            android:text="알림 없어도 괜찮아요"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/itsok"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/week" />
 
-
-
-
-
+        <Button
+            android:id="@+id/completion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/greenbtn"
+            android:fontFamily="@font/nexonlv1gothicregular"
+            android:text="모든 설정 완료!"
+            android:textFontWeight="700"
+            android:textSize="14dp"
+            android:textColor="@color/White"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itsok" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

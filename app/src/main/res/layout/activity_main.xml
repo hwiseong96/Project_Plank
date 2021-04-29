@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="56dp">
@@ -30,72 +31,80 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="플랭크30" />
+                    android:fontFamily="@font/nexonlv1gothicregular"
+                    android:text="플랭크30"
+                    android:textFontWeight="700"
+                    android:textSize="20dp" />
 
 
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/coordinator"
-            android:layout_marginTop="56dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp">
 
-            <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbar2"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:fitsSystemWindows="true">
+                app:layout_scrollFlags="enterAlways|scroll">
 
-                <com.google.android.material.appbar.CollapsingToolbarLayout
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_scrollFlags="enterAlways|scroll">
+                    android:layout_height="47dp"
+                    app:tabIndicator="@drawable/tab_selector"
+                    app:tabIndicatorColor="@color/Green"
+                    app:tabTextAppearance="@style/tab_text">
 
-                    <com.google.android.material.tabs.TabLayout
-                        android:id="@+id/tab"
-                        android:layout_width="match_parent"
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
                         android:layout_height="47dp"
-                        app:tabIndicatorColor="@color/Green"
-                        app:tabIndicator="@drawable/tab_selector">
+                        android:layout_gravity="center"
+                        android:text="투데이">
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="47dp"
-                            android:text="투데이">
+                    </com.google.android.material.tabs.TabItem>
 
-                        </com.google.android.material.tabs.TabItem>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="47dp"
+                        android:layout_gravity="center"
+                        android:text="히스토리" />
 
-                        <com.google.android.material.tabs.TabItem
-                            android:layout_width="wrap_content"
-                            android:layout_height="47dp"
-                            android:text="히스토리" />
+                </com.google.android.material.tabs.TabLayout>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-                    </com.google.android.material.tabs.TabLayout>
-                </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-            </com.google.android.material.appbar.AppBarLayout>
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginEnd="11dp"
-                android:layout_marginBottom="47dp"
-                android:background="@color/Green"
-                android:layout_gravity="bottom|end"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-                />
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="11dp"
+            android:layout_marginBottom="47dp"
+            android:background="@color/Green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

@@ -47,18 +47,19 @@
                 android:id="@+id/count"
                 android:layout_width="122dp"
                 android:layout_height="53dp"
-                android:layout_marginTop="122dp"
                 android:gravity="center"
                 android:text="10초"
                 android:textFontWeight="700"
                 android:textSize="45dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="@+id/circle"
+                app:layout_constraintEnd_toEndOf="@id/circle"
+                app:layout_constraintStart_toStartOf="@+id/circle"
+                app:layout_constraintBottom_toBottomOf="@id/circle" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="엘보우 플랭크"
+                android:id="@+id/name"
                 app:layout_constraintTop_toBottomOf="@id/count"
                 android:gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,11 +103,7 @@
                 android:background="@drawable/vector_r3x"
                 app:layout_constraintStart_toEndOf="@+id/start"
                 app:layout_constraintTop_toBottomOf="@id/imgPlank"/>
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

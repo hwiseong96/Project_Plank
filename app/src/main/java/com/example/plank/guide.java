@@ -26,7 +26,7 @@ public class guide extends AppCompatActivity {
     private List<String> temp;
     private TextView textView, textView2, textView3;
     private TabLayout tabLayout;
-    public SharedPreferences preferences2;
+    public SharedPreferences preferences;
     private ViewFlipper flipper;
     private ViewPager pager;
     public static int countIndexes = 3;
@@ -38,15 +38,15 @@ public class guide extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
-        preferences2 = getSharedPreferences("Pref2", MODE_PRIVATE);
+        preferences = getSharedPreferences("Pref2", MODE_PRIVATE);
         temp = new ArrayList<>();
         final float[] downX = new float[1];
         final float[] upX = new float[1];
 
         flipper = findViewById(R.id.flipper);
-        Animation showIn = AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left);
-        flipper.setInAnimation(showIn);
-        flipper.setOutAnimation(this, android.R.anim.slide_out_right);
+//        Animation showIn = AnimationUtils.loadAnimation(this, R.anim.flipper_left_out);
+//        flipper.setInAnimation(showIn);
+//        flipper.setOutAnimation(this, R.anim.flipper_right_in);
 
         textView = findViewById(R.id.explane);
         textView2 = findViewById(R.id.explane2);
@@ -83,6 +83,8 @@ public class guide extends AppCompatActivity {
                     if (upX[0] < downX[0]) {
 //                         다음 슬라이드가 존재할 경우 다음 슬라이드를 보여준다.
                         if (currentIndex[0] < (countIndexes - 1)) {
+                            flipper.setInAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.flipper_right_in));
+                            flipper.setOutAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.flipper_left_out));
                             flipper.showNext();
                             currentIndex[0]++;
                         }
@@ -90,6 +92,8 @@ public class guide extends AppCompatActivity {
 
 //                         이전 플리퍼뷰가 존재할 경우, 이전 플리퍼뷰를 보여준다.
                         if (currentIndex[0] > 0) {
+                            flipper.setInAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.flipper_left_in));
+                            flipper.setOutAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.flipper_right_out));
                             flipper.showPrevious();
                             // update index buttons
                             currentIndex[0]--;
@@ -113,6 +117,8 @@ public class guide extends AppCompatActivity {
                 }
                 pager.setCurrentItem(pager.getCurrentItem() + 1);
                 if (currentIndex[0] < (countIndexes - 1)) {
+                    flipper.setInAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.flipper_right_in));
+                    flipper.setOutAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.flipper_left_out));
                     flipper.showNext();
                     currentIndex[0]++;
                 }
@@ -124,11 +130,11 @@ public class guide extends AppCompatActivity {
     }
 
     public void checkSecondRun(){
-        boolean isSecondRun = preferences2.getBoolean("isSecondRun",true);
+        boolean isSecondRun = preferences.getBoolean("isSecondRun",true);
         if (isSecondRun){
             Intent intent = new Intent(this, Difficulty.class);
             startActivity(intent);
-            preferences2.edit().putBoolean("isSecondRun",false).apply();
+//            preferences2.edit().putBoolean("isSecondRun",false).apply();
         }
     }
 

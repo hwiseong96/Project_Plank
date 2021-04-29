@@ -14,12 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ViewHolderHistory extends RecyclerView.ViewHolder {
 
     ImageView image, image2;
-    TextView month, day, nDay, plank1, plank2, memo;
+    TextView month, day, nDay, plank1, plank2, memo, diffi;
     ConstraintLayout constraintLayout;
     Button button;
 
     public ViewHolderHistory(@NonNull final View itemView){
         super(itemView);
+        diffi = itemView.findViewById(R.id.diffi);
         image = itemView.findViewById(R.id.check1);
         image2 = itemView.findViewById(R.id.check2);
         month = itemView.findViewById(R.id.mon);
@@ -41,6 +42,7 @@ public class ViewHolderHistory extends RecyclerView.ViewHolder {
         nDay.setText(data.getnDay());
         plank1.setText(data.getPlank1());
         plank2.setText(data.getPlank2());
+        diffi.setText(data.getDiffi() + "30일 챌린지 도전중");
         if(data.getMemo() == null || data.getMemo().length() == 0){
             constraintLayout.setVisibility(View.GONE);
         }else{

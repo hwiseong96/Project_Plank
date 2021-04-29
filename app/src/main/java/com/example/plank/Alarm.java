@@ -13,6 +13,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -30,7 +33,7 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Alarm extends AppCompatActivity {
+public class Alarm extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     private TimePicker timePicker;
     private AlarmManager alarmManager;
     private int hour, minute;
@@ -61,9 +64,21 @@ public class Alarm extends AppCompatActivity {
         cbFri = findViewById(R.id.fri);
         cbSat = findViewById(R.id.sat);
 
+        cbSun.setOnCheckedChangeListener(this);
+        cbMon.setOnCheckedChangeListener(this);
+        cbTue.setOnCheckedChangeListener(this);
+        cbWed.setOnCheckedChangeListener(this);
+        cbThu.setOnCheckedChangeListener(this);
+        cbFri.setOnCheckedChangeListener(this);
+        cbSat.setOnCheckedChangeListener(this);
+
+
+
+
+
         complete = findViewById(R.id.completion);
         back = findViewById(R.id.itsok);
-
+        final float scale = getResources().getDisplayMetrics().density;
 
         complete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +159,42 @@ public class Alarm extends AppCompatActivity {
         alarmManager.cancel(pIntent);
     }
 
-
-
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if(cbSun.isChecked()){
+            cbSun.setTextColor(Color.parseColor("#FFFFFF"));
+        }else{
+            cbSun.setTextColor(Color.parseColor("#000000"));
+        }
+        if(cbMon.isChecked()){
+            cbMon.setTextColor(Color.parseColor("#FFFFFF"));
+        }else{
+            cbMon.setTextColor(Color.parseColor("#000000"));
+        }
+        if(cbTue.isChecked()){
+            cbTue.setTextColor(Color.parseColor("#FFFFFF"));
+        }else{
+            cbTue.setTextColor(Color.parseColor("#000000"));
+        }
+        if(cbWed.isChecked()){
+            cbWed.setTextColor(Color.parseColor("#FFFFFF"));
+        }else{
+            cbWed.setTextColor(Color.parseColor("#000000"));
+        }
+        if(cbThu.isChecked()){
+            cbThu.setTextColor(Color.parseColor("#FFFFFF"));
+        }else{
+            cbThu.setTextColor(Color.parseColor("#000000"));
+        }
+        if(cbFri.isChecked()){
+            cbFri.setTextColor(Color.parseColor("#FFFFFF"));
+        }else{
+            cbFri.setTextColor(Color.parseColor("#000000"));
+        }
+        if(cbSat.isChecked()){
+            cbSat.setTextColor(Color.parseColor("#FFFFFF"));
+        }else{
+            cbSat.setTextColor(Color.parseColor("#000000"));
+        }
+    }
 }

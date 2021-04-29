@@ -38,7 +38,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="56dp"
             android:layout_marginBottom="56dp"
-            android:background="#E5E5E5"
+            android:background="@color/BG_Gray"
             >
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/beginner"
+                    android:id="@+id/detailDiff"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -68,9 +68,11 @@
                     android:layout_height="32dp"
                     android:layout_marginTop="26dp"
                     android:layout_marginEnd="24dp"
-                    android:gravity="center_horizontal"
+                    android:gravity="center"
                     android:text="RESET"
                     android:textSize="13dp"
+                    android:textColor="@color/Green"
+                    android:background="@drawable/greenlinebtn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -84,7 +86,7 @@
                     android:text="설명"
                     app:layout_constraintStart_toStartOf="parent"
                     android:textFontWeight="400"
-                    app:layout_constraintTop_toBottomOf="@id/beginner" />
+                    app:layout_constraintTop_toBottomOf="@id/detailDiff" />
 
                 <TextView
                     android:id="@+id/nday"
@@ -139,6 +141,8 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="1일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn1"
@@ -150,6 +154,8 @@
                     android:layout_weight="1" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="2일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn2"
@@ -161,6 +167,8 @@
                     android:layout_weight="1" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="3일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn3"
@@ -172,6 +180,8 @@
                     android:layout_weight="1" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="4일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn4"
@@ -183,6 +193,8 @@
                     android:layout_weight="1" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="5일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn5"
@@ -206,6 +218,8 @@
                 app:layout_constraintStart_toStartOf="parent">
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="6일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn6"
@@ -217,6 +231,8 @@
                     android:layout_weight="1" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="7일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn7"
@@ -228,6 +244,8 @@
                     android:layout_weight="1" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="8일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn8"
@@ -239,6 +257,8 @@
                     android:layout_weight="1" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="9일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn9"
@@ -250,6 +270,8 @@
                     android:layout_weight="1" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="10일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn10"
@@ -273,6 +295,8 @@
                 app:layout_constraintTop_toBottomOf="@id/detailLL6">
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="11일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn11"
@@ -284,6 +308,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="12일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn12"
@@ -295,6 +321,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="13일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn13"
@@ -306,6 +334,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="14일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn14"
@@ -317,6 +347,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="15일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn15"
@@ -340,6 +372,8 @@
                 app:layout_constraintTop_toBottomOf="@id/detailLL2">
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="16일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn16"
@@ -351,6 +385,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="17일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:layout_weight="1"
@@ -362,6 +398,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="18일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn18"
@@ -373,6 +411,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="19일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn19"
@@ -384,6 +424,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="20일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn20"
@@ -407,6 +449,8 @@
                 app:layout_constraintTop_toBottomOf="@id/detailLL3">
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="21일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:layout_marginStart="4dp"
@@ -418,6 +462,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="22일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn22"
@@ -429,6 +475,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="23일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn23"
@@ -440,6 +488,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="24일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn24"
@@ -451,6 +501,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="25일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:id="@+id/btn25"
@@ -474,6 +526,8 @@
                 app:layout_constraintTop_toBottomOf="@id/detailLL4">
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="26일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:layout_marginBottom="27dp"
@@ -485,6 +539,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="27일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:layout_marginBottom="27dp"
@@ -496,6 +552,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="28일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:layout_weight="1"
@@ -507,6 +565,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="29일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:layout_marginBottom="27dp"
@@ -518,6 +578,8 @@
                     android:layout_height="wrap_content" />
 
                 <com.example.plank.SquareButton
+                    android:background="@drawable/now"
+                    android:text="30일차"
                     android:fontFamily="@font/nexonlv1gothicregular"
                     android:textFontWeight="700"
                     android:layout_weight="1"
@@ -537,7 +599,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nexon_normal"
-                android:text="· 3일 이상 챌린지를 진행하지 않으면 챌린지가 리셋됩니다.\n · 휴식날엔 푹 쉬세요! "
+                android:text="· 3일 이상 챌린지를 진행하지 않으면 챌린지가 리셋됩니다.\n· 휴식날엔 푹 쉬세요! "
                 android:textSize="12dp" />
 
 

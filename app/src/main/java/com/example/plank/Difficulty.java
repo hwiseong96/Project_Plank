@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.Locale;
 
 public class Difficulty extends AppCompatActivity {
-
+    public SharedPreferences preferences;
     int year, month, day;
     private String date;
     private SimpleDateFormat sdf;
@@ -25,9 +25,11 @@ public class Difficulty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_difficulty);
 
-        Button button = findViewById(R.id.Beginner);
+        Button button1 = findViewById(R.id.Beginner);
+        Button button2 = findViewById(R.id.Intermediate);
+        Button button3 = findViewById(R.id.Advanced);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -47,10 +49,87 @@ public class Difficulty extends AppCompatActivity {
                 sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
                 date = sdf.format(new Date());
 
+                Beginner beginner = new Beginner();
                 edit.commit();
-                beginner();
+                Diffi diffi= new Diffi(beginner.args);
+                diff(diffi);
                 dbCreate();
+                preferences = getSharedPreferences("Pref", MODE_PRIVATE);
+                preferences.edit().putBoolean("stop", false).apply();
+                preferences.edit().putBoolean("isFirstRun", false).apply();
+                preferences.edit().putBoolean("isSecondRun",false).apply();
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
 
+                finish();
+
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Calendar calendar = Calendar.getInstance();
+
+                SharedPreferences pref = getSharedPreferences("PrefTest", 0);
+                SharedPreferences.Editor edit = pref.edit();
+
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH) + 1;
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+                edit.putInt("년", year);
+                edit.putInt("월", month);
+                edit.putInt("일", day);
+                edit.putString("난이도", "중급");
+                //edit.putInt("플랭크",1);
+                sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
+                date = sdf.format(new Date());
+
+                edit.commit();
+                Intermediate intermediate = new Intermediate();
+                Diffi diffi= new Diffi(intermediate.args);
+                diff(diffi);
+                dbCreate();
+                preferences = getSharedPreferences("Pref", MODE_PRIVATE);
+                preferences.edit().putBoolean("stop", false).apply();
+                preferences.edit().putBoolean("isFirstRun", false).apply();
+                preferences.edit().putBoolean("isSecondRun",false).apply();
+                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+
+                finish();
+
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Calendar calendar = Calendar.getInstance();
+
+                SharedPreferences pref = getSharedPreferences("PrefTest", 0);
+                SharedPreferences.Editor edit = pref.edit();
+
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH) + 1;
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+                edit.putInt("년", year);
+                edit.putInt("월", month);
+                edit.putInt("일", day);
+                edit.putString("난이도", "고급");
+                //edit.putInt("플랭크",1);
+                sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
+                date = sdf.format(new Date());
+
+                edit.commit();
+                Advanced advanced = new Advanced();
+                Diffi diffi= new Diffi(advanced.args);
+                diff(diffi);
+                dbCreate();
+                preferences = getSharedPreferences("Pref", MODE_PRIVATE);
+                preferences.edit().putBoolean("isFirstRun", false).apply();
+                preferences.edit().putBoolean("stop", false).apply();
+                preferences.edit().putBoolean("isSecondRun",false).apply();
                 Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(intent);
 
@@ -61,46 +140,14 @@ public class Difficulty extends AppCompatActivity {
 
     }
 
-    public void beginner() {
+    public void diff(Diffi obj) {
 
         DBHelper2 helper2 = new DBHelper2(this);
         SQLiteDatabase db2 = helper2.getWritableDatabase();
 
-        String sql = "insert into DifficultTable (textData, textData2) values(?,?)";
+        String sql = "insert into DifficultTable (textData, textData2, timeData, timeData2) values(?,?,?,?)";
+        String [][] table = obj.args;
 
-        Beginner beginner = new Beginner();
-
-        String[][] table = {beginner.arg1,
-                beginner.arg2,
-                beginner.arg3,
-                beginner.arg4,
-                beginner.arg5,
-                beginner.arg6,
-                beginner.arg7,
-                beginner.arg8,
-                beginner.arg9,
-                beginner.arg10,
-                beginner.arg11,
-                beginner.arg12,
-                beginner.arg13,
-                beginner.arg14,
-                beginner.arg15,
-                beginner.arg16,
-                beginner.arg17,
-                beginner.arg18,
-                beginner.arg19,
-                beginner.arg20,
-                beginner.arg21,
-                beginner.arg22,
-                beginner.arg23,
-                beginner.arg24,
-                beginner.arg25,
-                beginner.arg26,
-                beginner.arg27,
-                beginner.arg28,
-                beginner.arg29,
-                beginner.arg30,
-        };
         for(int i = 0; i < table.length; i++){
             db2.execSQL(sql,table[i]);
         }

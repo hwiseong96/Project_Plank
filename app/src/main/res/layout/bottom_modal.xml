@@ -70,6 +70,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:layout_marginTop="30dp"
+        android:background="@drawable/greenlinebtn"
+        android:id="@+id/BDok"
         android:text="확인"/>
 
 

@@ -23,11 +23,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="13dp"
+            android:fontFamily="@font/nexon_normal"
+            android:textSize="14dp"
             android:text="N월"
             android:textColor="#BCC1CD" />
 
         <TextView
             android:id="@+id/il"
+            android:fontFamily="@font/nexonlv1gothicregular"
+            android:textFontWeight="700"
+            android:textSize="16dp"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_gravity="center"
@@ -50,14 +55,20 @@
             android:layout_height="16dp"
             android:layout_marginTop="13dp"
             android:text="초급 30일 챌린지 도전중"
+            android:fontFamily="@font/nexon_normal"
+            android:textSize="12dp"
+            android:id="@+id/diffi"
             android:textColor="#9B9B9B" />
 
         <TextView
             android:id="@+id/ilcha"
             android:layout_width="150dp"
+            android:fontFamily="@font/nexonlv1gothicregular"
+            android:textFontWeight="700"
             android:layout_height="18dp"
             android:layout_marginTop="5dp"
             android:text="N일차"
+            android:textSize="16dp"
             android:textColor="#212525" />
 
     </LinearLayout>
@@ -91,6 +102,8 @@
                 android:text="성공"
                 android:textColor="#4F4F4F"
                 android:textSize="14dp"
+                android:fontFamily="@font/nexonlv1gothicregular"
+                android:textFontWeight="700"
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -111,6 +124,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
                 android:layout_marginStart="10dp"
+                android:fontFamily="@font/nexon_normal"
+                android:textSize="13dp"
                 android:text="\@@@ 플랭크 30초"
                 app:layout_constraintStart_toEndOf="@id/check1"
                 app:layout_constraintTop_toBottomOf="@id/ment" />
@@ -131,6 +146,8 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="11dp"
+                android:fontFamily="@font/nexon_normal"
+                android:textSize="13dp"
                 android:text="\@@@ 플랭크 30초"
                 app:layout_constraintStart_toEndOf="@id/check2"
                 app:layout_constraintTop_toBottomOf="@id/PT" />
@@ -145,7 +162,12 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="13dp"
                 android:id="@+id/hisBtn"
-
+                android:background="@drawable/greenbtn"
+                android:fontFamily="@font/nexonlv1gothicregular"
+                android:textFontWeight="700"
+                android:textSize="14dp"
+                android:textColor="@color/White"
+                android:tag="now"
                 android:text="운동 시작하기"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -168,6 +190,8 @@
                 android:id="@+id/memo"
                 android:gravity="center_vertical"
                 android:padding="16dp"
+                android:fontFamily="@font/nexon_normal"
+                android:textSize="13dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 

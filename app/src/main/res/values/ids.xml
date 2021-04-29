@@ -5,5 +5,7 @@
     <item name="conti" type="id"/>
     <item name="succ" type="id"/>
     <item name="frag" type="id"/>
+    <item name="sound" type="id"/>
+    <item name="mute" type="id"/>
 
 </resources>

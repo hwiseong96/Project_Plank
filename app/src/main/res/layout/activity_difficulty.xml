@@ -1,18 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Difficulty">
-    <Button
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/Beginner"
-        android:layout_width="wrap_content"
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:fontFamily="@font/nexonlv1gothicregular"
+        android:gravity="center"
+        android:text="어떤 수준의 플랭크를\n30일동안 하시겠어요?"
+        android:textFontWeight="700"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nexon_normal"
+        android:gravity="center"
+        android:text="설명 추가 예정"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv1" />
+
+
+    <Button
+        android:id="@+id/Beginner"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="52dp"
         android:text="초급"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/greenlinebtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv2" />
+
+    <Button
+        android:id="@+id/Intermediate"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:text="중급"
+        android:layout_marginStart="24dp"
+        android:background="@drawable/greenlinebtn"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="17dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Beginner" />
+
+    <Button
+        android:id="@+id/Advanced"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/greenlinebtn"
+        android:layout_marginTop="17dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:text="고급"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/Intermediate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

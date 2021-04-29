@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".Splash"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:screenOrientation="portrait">
+        <activity android:name=".TimerComplete"></activity>
+        <activity android:name=".TimerReady" />
+        <activity android:name=".What" />
+        <activity
+            android:name=".Splash"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,9 +37,10 @@
 
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
     </application>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBLATE"/>
 
 </manifest>

@@ -4,8 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -22,19 +27,23 @@ import java.util.TimerTask;
 
 public class secondTimer extends AppCompatActivity {
     CircularProgressBar circularProgressBar;
-    TextView textView;
-    long counter = 10000;
+    TextView textView, textView2;
+    long counter;
     Button start;
     long milliLeft, sec;
     int count = 0;
+    int time, second, val;
+    String plank;
+    private MainActivity activity;
     CountDownTimer countDownTimer;
-
+    private SQLiteDatabase db;
+    private int intData2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
-//
+
 //        final Toolbar mToolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(mToolbar);
 //        ActionBar actionBar = getSupportActionBar();
@@ -42,32 +51,39 @@ public class secondTimer extends AppCompatActivity {
 //
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        textView = findViewById(R.id.count);
-        circularProgressBar = findViewById(R.id.circle);
-        circularProgressBar.CircularProgressBar(10);
+        DBHelper helper = new DBHelper(getApplicationContext());
+        db = helper.getReadableDatabase();
 
+        String sql = "select * from HistoryTable";
+
+        Cursor c = db.rawQuery(sql, null);
+        c.moveToLast();
+
+        int intData2_pos = c.getColumnIndex("intData2");
+        intData2 = c.getInt(intData2_pos);
+
+        time = getIntent().getIntExtra("time", 999);
+        plank = getIntent().getStringExtra("name");
+        val = getIntent().getIntExtra("val", 0);
+
+        textView2 = findViewById(R.id.name);
+        textView2.setText(plank);
+
+        textView = findViewById(R.id.count);
+        textView.setText(time + "초");
+
+        circularProgressBar = findViewById(R.id.circle);
+        circularProgressBar.mMaxProgress = time;
+        circularProgressBar.CircularProgressBar(time);
+        counter = time * 1000;
+        second = time;
         start = findViewById(R.id.start);
-//        start.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                if (spr == 1) {
-//                    timerStart(counter);
-//                    spr = 2;
-//                    start.setBackgroundResource(R.drawable.group);
-//                } else if(spr == 2){
-//                    timerPause();
-//                }else if(spr == 3){
-//                    timerResume();;
-//                }
-//
-//            }
-//        });
 
     }
-    public void btnMethod(View view){
 
-        switch (view.getId()){
+    public void btnMethod(View view) {
+
+        switch (view.getId()) {
             case R.id.start:
                 timerStart(counter);
                 start.setId(R.id.pause);
@@ -82,29 +98,31 @@ public class secondTimer extends AppCompatActivity {
                 break;
         }
 
-
-
     }
-    public void timerStart(long timeLengthMilli){
+
+    public void timerStart(long timeLengthMilli) {
         counter = timeLengthMilli;
         countDownTimer = new CountDownTimer(counter, 1000) {
             @Override
             public void onTick(long l) {
 
-                if(count == 10){
+                if (count == time) {
                     off();
                 }
-
                 milliLeft = l;
-                sec = (l/1000);
+                sec = (l / 1000);
                 milliLeft = l;
-                int a = 10;
+                second -= 1;
+                if(second < 0){
+                    second = 0;
+                }
                 milliLeft = l;
-                a -= count;
-                textView.setText(a + "초");
+                textView.setText(second + "초");
                 milliLeft = l;
                 count++;
+                milliLeft = l;
                 circularProgressBar.setProgress(count);
+                milliLeft = l;
                 sec--;
                 milliLeft = l;
 
@@ -112,27 +130,32 @@ public class secondTimer extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                setResult(RESULT_OK);
+                //setResult(RESULT_OK);
+                result();
                 finish();
             }
         }.start();
     }
 
 
-    public void timerPause(){
+    public void timerPause() {
         countDownTimer.cancel();
         start.setBackgroundResource(R.drawable.pause_3x);
     }
-    private void timerResume(){
+
+    private void timerResume() {
         timerStart(milliLeft);
         start.setBackgroundResource(R.drawable.group);
     }
-    public void off(){
+
+    public void off() {
         timerPause();
-        setResult(RESULT_OK);
-        finish();
+        //setResult(RESULT_OK);
+        result();
+
 
     }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
@@ -143,6 +166,38 @@ public class secondTimer extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void result() {
+        switch (val) {
+            case 1:
+                //now.setTag("conti");
+                //now.setText(pro + "일차 운동 계속하기");
+                String sql2 = "update HistoryTable set boolData = 0 where intData2 = " + intData2;
+                db.execSQL(sql2);
+                Intent intent = getIntent();
+                intent.putExtra("p2",getIntent().getStringExtra("name3"));
+                intent.putExtra("t2",getIntent().getIntExtra("time4",0));
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                setResult(0,intent);
+                break;
+
+            case 2:
+                //now.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.planksuccess));
+                //now.setTag("succ");
+                //now.setText(pro + "일차 운동 성공! 내일 또 봐요");
+                //now.setEnabled(false);
+                String sql3 = "update HistoryTable set boolData2 = 0, ClearData = 0 where intData2 = " + intData2;
+                db.execSQL(sql3);
+                setResult(1);
+                finish();
+                break;
+
+            default:
+                Log.d("asdf","3");
+                break;
+
+        }
     }
 
 }

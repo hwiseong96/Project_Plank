@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:background="#E5E5E5"
+        android:background="@color/BG_Gray"
         android:id="@+id/hisNS"
         tools:context=".HistoryFragment">
 

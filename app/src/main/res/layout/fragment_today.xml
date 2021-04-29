@@ -118,16 +118,17 @@
                 <TextView
                     android:id="@+id/second"
                     android:layout_width="49dp"
-                    android:layout_height="49dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="17dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginBottom="11dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"
                     android:background="@drawable/seconditem"
                     android:fontFamily="@font/nexon_normal"
                     android:gravity="center"
                     android:text="30초"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
                 <TextView
                     android:id="@+id/pl1"
@@ -167,15 +168,16 @@
                 <TextView
                     android:id="@+id/second2"
                     android:layout_width="49dp"
-                    android:layout_height="49dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="17dp"
-                    android:layout_marginTop="11dp"
-                    android:layout_marginBottom="11dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="18dp"
                     android:background="@drawable/seconditem"
                     android:fontFamily="@font/nexon_normal"
                     android:gravity="center"
                     android:text="30초"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView

@@ -40,11 +40,13 @@ public class HistoryFragment extends Fragment {
     private SimpleDateFormat sdf;
     private NestedScrollView nestedScrollView;
     private SQLiteDatabase db;
+    private String diffi, plank;
     final int NOW = 1;
     final int CONTI = 2;
-    Button button;
+    private Button button;
     RecyclerView recyclerView;
     MainActivity activity;
+    private SQLiteDatabase sqLiteDatabase;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,19 +67,57 @@ public class HistoryFragment extends Fragment {
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        DBHelper dbHelper = new DBHelper(getContext());
+        SQLiteDatabase sqLitedb = dbHelper.getReadableDatabase();
+        String sql4 = "select * from HistoryTable";
+        Cursor c4 = sqLitedb.rawQuery(sql4, null    );
+        c4.moveToLast();
+        int intData2_pos = c4.getColumnIndex("intData2");
+        int intData2 = c4.getInt(intData2_pos);
+
+        DBHelper2 dbHelper2 = new DBHelper2(getContext());
+        sqLiteDatabase = dbHelper2.getReadableDatabase();
+
+        String sql3 = "select * from DifficultTable where idx = "+ intData2;
+        sqLitedb.close();
+
+        Cursor c3 = sqLiteDatabase.rawQuery(sql3, null  );
+        c3.moveToLast();
+
+        int timeData_pos = c3.getColumnIndex("timeData");
+        int timeData2_pos = c3.getColumnIndex("timeData2");
+        int textData_pos = c3.getColumnIndex("textData");
+        int textData2_pos = c3.getColumnIndex("textData2");
+
+        final int timeData = c3.getInt(timeData_pos);
+        final int timeData2 = c3.getInt(timeData2_pos);
+        final String textData = c3.getString(textData_pos);
+        final String textData2 = c3.getString(textData2_pos);
+
         adapter = new HAdapter(new HAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getContext(), secondTimer.class);
-                if(button.getId() == R.id.conti){
-                    startActivityForResult(intent, CONTI);
+                Intent intent = new Intent(getContext(), TimerReady.class);
+                if(button.getTag().equals("conti")){
+                    intent.putExtra("val",CONTI);
+                    intent.putExtra("time2",timeData2);
+                    intent.putExtra("name2",textData2);
+                    startActivity(intent);
                 } else {
-                    startActivityForResult(intent, NOW);
+                    intent.putExtra("time",timeData);
+                    intent.putExtra("name",textData);
+                    intent.putExtra("time2",timeData2);
+                    intent.putExtra("name2",textData2);
+                    intent.putExtra("val",NOW);
+                    startActivity(intent);
                 }
             }
         });
+
         recyclerView.setAdapter(adapter);
         sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
+        button = view2.findViewById(R.id.hisBtn);
 
         DBHelper helper = new DBHelper(getContext());
         db = helper.getReadableDatabase();
@@ -108,18 +148,17 @@ public class HistoryFragment extends Fragment {
             getData(Integer.toString(i));
         }
 
-        button = view2.findViewById(R.id.hisBtn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), secondTimer.class);
-                if (button.getId() == R.id.conti) {
-                    startActivityForResult(intent, CONTI);
-                } else {
-                    startActivityForResult(intent, NOW);
-                }
-            }
-        });
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getContext(), secondTimer.class);
+//                if (button.getTag().equals("conti")) {
+//                    startActivityForResult(intent, CONTI);
+//                } else {
+//                    startActivityForResult(intent, NOW);
+//                }
+//            }
+//        });
 
         return view;
     }
@@ -131,7 +170,6 @@ public class HistoryFragment extends Fragment {
         DBHelper2 helper2 = new DBHelper2(getContext());
         SQLiteDatabase db2 = helper2.getReadableDatabase();
 
-        Log.d("aaaa",dDay+"elepdl");
         String sql = "select * from HistoryTable where intData = " + dDay + "";
         Cursor c = db.rawQuery(sql, null);
 
@@ -156,7 +194,7 @@ public class HistoryFragment extends Fragment {
         String day = date[2];
 
         SharedPreferences pref = getActivity().getSharedPreferences("PrefTest", 0);
-        String plank = Integer.toString(intData2);
+        plank = Integer.toString(intData2);
 
         String sql2 = "select * from DifficultTable where idx = ?";
         String[] arg = {plank};
@@ -184,14 +222,17 @@ public class HistoryFragment extends Fragment {
 
         if(boolData == true){
             check1 = R.drawable.ic_launcher_background;
+            button.setTag("conti");
         }else if(boolData == false){
             check1 = R.drawable.ic_launcher_foreground;
+
             if (today.equals(dateData)) {
                 check1 = R.drawable.circle;
             }
         }
         if(boolData2 == true){
             check2 = R.drawable.ic_launcher_background;
+            button.setTag("succ");
         }else if(boolData2 == false){
             check2 = R.drawable.ic_launcher_foreground;
             if (today.equals(dateData)) {
@@ -199,10 +240,12 @@ public class HistoryFragment extends Fragment {
             }
         }
 
-        DataHistory data = new DataHistory(month + "월", day + "일", intData + "일차", plank1, plank2, memo, check1, check2, ClearData);
+        diffi = pref.getString("난이도", "");
+
+        DataHistory data = new DataHistory(month + "월", day + "일", intData + "일차", plank1, plank2, memo, check1, check2, ClearData, diffi);
 
         adapter.addItem(data);
-        //db.close();
+        db2.close();
     }
 
     public int dDay() {
@@ -230,8 +273,6 @@ public class HistoryFragment extends Fragment {
 //        if (diffDay >= 70000) {
 //            diffDay = 0;
 //        }
-
-
         return ((int) diffDay + 1);
     }
 
@@ -247,7 +288,7 @@ public class HistoryFragment extends Fragment {
             case NOW:
                 switch (resultCode) {
                     case RESULT_OK:
-                        button.setId(R.id.conti);
+                        button.setTag(R.id.conti);
                         String sql2 = "select * from HistoryTable";
 
                         Cursor c = db.rawQuery(sql2,null);
@@ -259,7 +300,6 @@ public class HistoryFragment extends Fragment {
                         String sql = "update HistoryTable set boolData = 0 where intData2 = " +intData2;
                         db.execSQL(sql);
                         activity.setFragment("refresh");
-                        db.close();
                         break;
                     default:
                         break;
@@ -269,7 +309,7 @@ public class HistoryFragment extends Fragment {
             case CONTI:
                 switch (resultCode) {
                     case RESULT_OK:
-                        button.setId(R.id.succ);
+                        button.setTag(R.id.succ);
                         String sql2 = "select * from HistoryTable";
 
                         Cursor c = db.rawQuery(sql2,null);
@@ -278,10 +318,11 @@ public class HistoryFragment extends Fragment {
                         int intData2_pos = c.getColumnIndex("intData2");
                         int intData2 = c.getInt(intData2_pos);
 
-                        String sql = "update HistoryTable set boolData2 = 0 where intData2 = " +intData2;
+                        String sql = "update HistoryTable set boolData2 = 0, ClearData = 0 where intData2 = " +intData2;
                         db.execSQL(sql);
                         activity.setFragment("refresh");
                         db.close();
+                        sqLiteDatabase.close();
                         break;
                     default:
                         break;

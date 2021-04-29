@@ -28,6 +28,7 @@ public class VPAdapter extends FragmentPagerAdapter {
 
         itext.add("투데이");
         itext.add("히스토리");
+
     }
 
     @NonNull

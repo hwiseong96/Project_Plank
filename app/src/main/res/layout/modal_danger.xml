@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="204dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:layout_marginTop="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:text="오늘은 꼭 운동합시다"
+        android:fontFamily="@font/nexonlv1gothicregular"
+        android:textFontWeight="700"
+        android:id="@+id/certain"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/certain"
+        android:layout_marginTop="8dp"
+        android:text="3일 이상 운동을 하지 않으면\n챌린지가 1일로 리셋됩니다!"
+        android:fontFamily="@font/nexon_normal"
+        android:id="@+id/dan"
+        />
+    <Button
+        android:textSize="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="확인했습니다"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:id="@+id/ghkrdls"
+        android:fontFamily="@font/nexonlv1gothicregular"
+        android:textFontWeight="700"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dan"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

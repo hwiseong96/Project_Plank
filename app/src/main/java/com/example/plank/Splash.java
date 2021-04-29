@@ -20,7 +20,7 @@ public class Splash extends Activity {
     public SharedPreferences preferences, pref;
     private String date;
     private SimpleDateFormat sdf;
-    boolean a = true;
+    boolean danger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,7 @@ public class Splash extends Activity {
         preferences = getSharedPreferences("Pref", MODE_PRIVATE);
         pref = getSharedPreferences("PrefTest", 0);
         sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
+        danger = false;
 
         Handler hd = new Handler();
         hd.postDelayed(new splashhandler(), 3000); // 1초 후에 hd handler 실행  3000ms = 3초
@@ -42,11 +43,12 @@ public class Splash extends Activity {
             boolean stop = preferences.getBoolean("stop", true);
             if (stop) {
                 checkFirstRun();
-                preferences.edit().putBoolean("stop", false).apply();
+//                preferences.edit().putBoolean("stop", false).apply();
             } else {
                 one();
                 // dbUpdate();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("경고",danger);
                 startActivity(intent);
             }
 
@@ -66,12 +68,13 @@ public class Splash extends Activity {
         if (isFirstRun) {
             Intent intent = new Intent(this, guide.class);
             startActivity(intent);
-            preferences.edit().putBoolean("isFirstRun", false).apply();
+//            preferences.edit().putBoolean("isFirstRun", false).apply();
         }
     }
 
     public void one() {
         String today = sdf.format(new Date());
+        danger = false;
 
         date = sdf.format(new Date());
         DBHelper helper = new DBHelper(this);
@@ -111,7 +114,11 @@ public class Splash extends Activity {
         if (Clear == true) {
             yester = Integer.toString(intData2 + 1);
         }
-        Log.d("aaaa",diffiDay+"");
+
+        SharedPreferences.Editor edit = pref.edit();
+        if(diffiDay >= 3){
+            danger = true;
+        }
         String []last = date.split("-");
 
         int lastYear = Integer.parseInt(last[0]);
@@ -120,7 +127,6 @@ public class Splash extends Activity {
 
         Calendar cal = Calendar.getInstance();
 
-
         if (!today.equals(dateData)) {
             int dif = (int)diffiDay;
             int j = 0;
@@ -128,12 +134,11 @@ public class Splash extends Activity {
                 j++;
                 dif--;
                 cal.set(lastYear, lastMonth, lastDay);
-                Log.d("aaaaa",sdf.format(cal.getTime()));
+
                 cal.add(Calendar.DATE,dif * -1);
 
                 date = sdf.format(cal.getTime());
                 String dDay = Integer.toString(intData+j);
-                Log.d("aaaa",date + "#" + yester + "#" +dDay);
                 String sql2 = "insert into HistoryTable (memoData, intData, intData2, dateData) values(?,?,?,?)";
                 String[] arg1 = {null, dDay, yester, date};
                 dbRead.execSQL(sql2, arg1);

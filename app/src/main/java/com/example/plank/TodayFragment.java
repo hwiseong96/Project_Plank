@@ -13,6 +13,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -51,7 +52,7 @@ public class TodayFragment extends Fragment {
 
     private static final String TAG1 = "1";
     private View view;
-    private TextView textView, textView2, plank1, plank2, memoText, mon, il, ilcha;
+    private TextView textView, textView2, plank1, plank2, second, second2;
     private EditText editText, editText2;
     private NestedScrollView nestedScrollView;
     private SoftKeyboard softKeyboard;
@@ -66,13 +67,14 @@ public class TodayFragment extends Fragment {
     String textData, textData2;
     private ConstraintLayout constraintLayout, constraintLayout2;
     public SharedPreferences preferences, pref;
-    MainActivity mainActivity;
     final int NOW = 1;
     final int CONTI = 2;
     private ImageView imageView, imageView2;
     SQLiteDatabase db;
     MainActivity activity;
     String dateData;
+    private Dialog dialog2;
+    Button asdd;
     public TodayFragment() {
 
     }
@@ -110,21 +112,22 @@ public class TodayFragment extends Fragment {
 
         sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
         date = sdf.format(new Date());
+
         activity = (MainActivity) getActivity();
 
         calendar = Calendar.getInstance();
         pro = dDay();
 
-
         textView = view.findViewById(R.id.ing);
         textView.setText(pro + "일차 도전 중");
         textView2 = view.findViewById(R.id.chall);
         textView2.setText(diffi + " 30일 챌린지");
+        second = view.findViewById(R.id.second);
+        second2 = view.findViewById(R.id.second2);
 
         imageView = view.findViewById(R.id.iv1);
         imageView2 = view.findViewById(R.id.iv2);
 
-        mainActivity = new MainActivity();
         now = view.findViewById(R.id.now);
         editText = view.findViewById(R.id.blank);
 
@@ -152,13 +155,18 @@ public class TodayFragment extends Fragment {
 
         if (boolData == true) {
             imageView.setImageResource(R.drawable.ic_launcher_background);
+            second.setBackgroundResource(R.drawable.seconditem2);
+            second.setTextColor(ContextCompat.getColor(getContext(),R.color.Green));
             now.setTag("conti");
             now.setText(pro + "일차 운동 계속하기");
         }
         if(boolData2 == true){
             imageView2.setImageResource(R.drawable.ic_launcher_background);
+            second2.setBackgroundResource(R.drawable.seconditem2);
+            second2.setTextColor(ContextCompat.getColor(getContext(),R.color.Green));
             now.setTag("succ");
             now.setText(pro + "일차 운동 성공! 내일 또 봐요");
+            now.setBackgroundResource(R.drawable.planksuccess);
             now.setEnabled(false);
         }
 
@@ -173,7 +181,8 @@ public class TodayFragment extends Fragment {
 
         int dateData_pos = c.getColumnIndex("dateData");
         dateData = c.getString(dateData_pos);
-        Button asdd = view.findViewById(R.id.asdd);
+        asdd = view.findViewById(R.id.asdd);
+
         asdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,13 +235,13 @@ public class TodayFragment extends Fragment {
                                 //Toast.makeText(getContext(), "오늘의 메모가 저장되었습니다!", Toast.LENGTH_SHORT).show();
                                 dbSave(memo);
                                 activity.setFragment("refresh");
+
                             }
                         });
 
                         cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-
                                 dialog.dismiss();
                             }
                         });
@@ -242,57 +251,88 @@ public class TodayFragment extends Fragment {
             }
         });
 
+        DBHelper2 helper3 =new DBHelper2(getContext());
+        SQLiteDatabase db3 = helper3.getReadableDatabase();
+
+        String sql3 = "select * from DifficultTable where idx = "+intData2;
+        Cursor c3 = db3.rawQuery(sql3,null );
+
+        c3.moveToLast();
+        int timeData_pos = c3.getColumnIndex("timeData");
+        int timeData2_pos = c3.getColumnIndex("timeData2");
+        int textData_pos= c3.getColumnIndex("textData");
+        int textData2_pos= c3.getColumnIndex("textData2");
+
+        final int timeData = c3.getInt(timeData_pos);
+        final int timeData2 = c3.getInt(timeData2_pos);
+        final String textData = c3.getString(textData_pos);
+        final String textData2 = c3.getString(textData2_pos);
+
         now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), secondTimer.class);
+                //Intent intent = new Intent(getContext(), secondTimer.class);
+                Intent intent = new Intent(getContext(), TimerReady.class);
                 if(now.getTag().equals("conti")){
-                    startActivityForResult(intent, CONTI);
+
+                    intent.putExtra("val",CONTI);
+                    intent.putExtra("time2",timeData2);
+                    intent.putExtra("name2",textData2);
+                    startActivity(intent);
+
                 } else {
-                    startActivityForResult(intent, NOW);
+                    intent.putExtra("time",timeData);
+                    intent.putExtra("name",textData);
+                    intent.putExtra("time2",timeData2);
+                    intent.putExtra("name2",textData2);
+                    intent.putExtra("val",NOW);
+                    startActivity(intent);
                 }
             }
         });
         return view;
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case NOW:
-                switch (resultCode) {
-                    case RESULT_OK:
-                        imageView.setImageResource(R.drawable.ic_launcher_background);
-                        now.setTag("conti");
-                        now.setText(pro + "일차 운동 계속하기");
-                        String sql = "update HistoryTable set boolData = 0 where intData2 = " +intData2;
-                        db.execSQL(sql);
-                        break;
-                    default:
-                        break;
-
-                }
-                break;
-            case CONTI:
-                switch (resultCode) {
-                    case RESULT_OK:
-                        now.setTag("succ");
-                        now.setText(pro + "일차 운동 성공! 내일 또 봐요");
-                        now.setEnabled(false);
-                        String sql = "update HistoryTable set boolData2 = 0, ClearData = 0 where intData2 = " +intData2;
-                        db.execSQL(sql);
-                        activity.setFragment("refresh");
-                        break;
-                    default:
-                        break;
-
-                }
-                break;
-        }
-
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        switch (requestCode) {
+//            case NOW:
+//                switch (resultCode) {
+//                    case RESULT_OK:
+//                        imageView.setImageResource(R.drawable.ic_launcher_background);
+//                        //now.setTag("conti");
+//                        //now.setText(pro + "일차 운동 계속하기");
+//                        String sql = "update HistoryTable set boolData = 0 where intData2 = " +intData2;
+//                        db.execSQL(sql);
+//                        Toast.makeText(getContext(), "bbbbbbbbbbbbbbb", Toast.LENGTH_SHORT).show();
+//                        activity.setFragment("refresh");
+//                        break;
+//                    default:
+//                        break;
+//
+//                }
+//                break;
+//            case CONTI:
+//                switch (resultCode) {
+//                    case RESULT_OK:
+//                        //now.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.planksuccess));
+//                        //now.setTag("succ");
+//                        //now.setText(pro + "일차 운동 성공! 내일 또 봐요");
+//                        //now.setEnabled(false);
+//                        String sql = "update HistoryTable set boolData2 = 0, ClearData = 0 where intData2 = " +intData2;
+//                        db.execSQL(sql);
+//                        activity.setFragment("refresh");
+//                        break;
+//                    default:
+//                        break;
+//
+//                }
+//                break;
+//        }
+//
+//    }
 
     @Override
     public void onDestroy() {
@@ -329,7 +369,6 @@ public class TodayFragment extends Fragment {
         String start = year + "-" + month + "-" + day;
 
         // 오늘 - 시작날 차이구하기
-
         try {
             Date lastDate = sdf.parse(start);
             Date todayDate = sdf.parse(today);
@@ -371,6 +410,5 @@ public class TodayFragment extends Fragment {
         db2.close();
 
     }
-
 
 }

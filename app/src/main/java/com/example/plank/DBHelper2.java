@@ -19,7 +19,9 @@ public class DBHelper2 extends SQLiteOpenHelper {
         String sql = "create table DifficultTable("
                 +"idx integer primary key autoincrement, "
                 +"textData text, "
-                +"textData2 text "
+                +"textData2 text, "
+                +"timeData integer,"
+                +"timeData2 integer"
                 +")";
 
         sqLiteDatabase.execSQL(sql);

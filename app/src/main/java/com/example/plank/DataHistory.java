@@ -2,11 +2,13 @@ package com.example.plank;
 
 public class DataHistory {
     int image, image2;
-    String month, day, nDay, plank1, plank2, memo;
+
+
+    String month, day, nDay, plank1, plank2, memo, diffi;
     boolean clear;
 
 
-    DataHistory(String month, String day, String nDay, String plank1, String plank2, String memo, int image, int image2, Boolean clear) {
+    DataHistory(String month, String day, String nDay, String plank1, String plank2, String memo, int image, int image2, Boolean clear, String diffi) {
         this.image = image;
         this.image2 = image2;
         this.day = day;
@@ -16,6 +18,15 @@ public class DataHistory {
         this.plank2 = plank2;
         this.memo = memo;
         this.clear =clear;
+        this.diffi = diffi;
+    }
+
+    public String getDiffi() {
+        return diffi;
+    }
+
+    public void setDiffi(String diffi) {
+        this.diffi = diffi;
     }
 
     public int getImage2() {

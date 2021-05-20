@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".Alarm">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:fitsSystemWindows="true"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height56">
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:background="#FFFFFF">
+
+        <TextView
+            android:layout_marginTop="@dimen/top56"
+            android:id="@+id/when"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height56"
+            android:fontFamily="@font/nexonlv1gothicregular"
+            android:gravity="center"
+            android:text="하루 중 언제\n플랭크를 하실 건가요?"
+            android:textFontWeight="700"
+            android:textSize="@dimen/text20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height20"
+            android:layout_marginTop="@dimen/top8"
+            android:fontFamily="@font/nexon_normal"
+            android:gravity="center"
+            android:text="잊지 않도록 알림을 보내드릴게요!"
+            android:textSize="@dimen/text14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/when" />
+
+        <Button
+            android:id="@+id/picker"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/height40"
+            android:layout_marginTop="@dimen/top100"
+            android:background="@color/White"
+            android:fontFamily="@font/nexonlv1gothicregular"
+            android:text="08 : 00 PM"
+            android:textColor="@color/Black"
+            android:textFontWeight="700"
+            android:textSize="@dimen/text28"
+            android:timePickerMode="spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text" />
+
+        <LinearLayout
+            android:id="@+id/week"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/start24"
+            android:layout_marginEnd="@dimen/end34"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/picker">
+
+            <com.example.plank.checkbox
+
+                android:id="@+id/sun"
+                android:layout_width="@dimen/cb36"
+                android:layout_height="@dimen/cb36"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/start10"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="일"
+                android:textSize="@dimen/text14" />
+
+            <com.example.plank.checkbox
+
+                android:id="@+id/mon"
+                android:layout_width="@dimen/cb36"
+                android:layout_height="@dimen/cb36"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/start10"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="월"
+                android:textSize="@dimen/text14" />
+
+            <com.example.plank.checkbox
+
+                android:id="@+id/tue"
+                android:layout_width="@dimen/cb36"
+                android:layout_height="@dimen/cb36"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/start10"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="화"
+                android:textSize="@dimen/text14" />
+
+            <com.example.plank.checkbox
+
+                android:id="@+id/wed"
+                android:layout_width="@dimen/cb36"
+                android:layout_height="@dimen/cb36"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/start10"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="수"
+                android:textSize="@dimen/text14" />
+
+            <com.example.plank.checkbox
+
+                android:id="@+id/thu"
+                android:layout_width="@dimen/cb36"
+                android:layout_height="@dimen/cb36"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/start10"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="목"
+                android:textSize="@dimen/text14" />
+
+            <com.example.plank.checkbox
+
+                android:id="@+id/fri"
+                android:layout_width="@dimen/cb36"
+                android:layout_height="@dimen/cb36"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/start10"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="금"
+                android:textSize="@dimen/text14" />
+
+            <com.example.plank.checkbox
+
+                android:id="@+id/sat"
+                android:layout_width="@dimen/cb36"
+                android:layout_height="@dimen/cb36"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/start10"
+                android:layout_weight="1"
+                android:background="@drawable/checkbox"
+                android:button="@null"
+                android:fontFamily="@font/nexon_normal"
+                android:gravity="center"
+                android:text="토"
+                android:textSize="@dimen/text14" />
+        </LinearLayout>
+
+        <LinearLayout
+            app:layout_constraintBottom_toTopOf="@id/vive"
+            android:id="@+id/exertime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text14"
+                android:fontFamily="@font/nexon_normal"
+                android:text="운동 시간 알림"/>
+
+        </LinearLayout>
+        <LinearLayout
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/vive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text14"
+                android:fontFamily="@font/nexon_normal"
+                android:text="진동"/>
+
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

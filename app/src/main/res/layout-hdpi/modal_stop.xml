@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/pbottom16">
+
+    <TextView
+        android:id="@+id/really"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top32"
+        android:text="운동을 중단하시겠어요?"
+        android:fontFamily="@font/nexonlv1gothicregular"
+        android:textFontWeight="700"
+        android:textSize="@dimen/text20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/resetExpl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/top8"
+        android:fontFamily="@font/nexon_normal"
+        android:text="힘들면 쉬다 오세요!"
+        android:textSize="@dimen/text14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/really" />
+
+    <Button
+        android:id="@+id/btnStop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/start16"
+        android:layout_marginTop="@dimen/top24"
+        android:layout_marginEnd="@dimen/end16"
+        android:text="그만하기"
+        android:fontFamily="@font/nexonlv1gothicregular"
+        android:background="@drawable/linebtn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:textFontWeight="700"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/text14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/resetExpl" />
+
+    <Button
+        android:id="@+id/notStop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nexonlv1gothicregular"
+        android:textFontWeight="700"
+        android:layout_marginStart="@dimen/start16"
+        android:layout_marginTop="@dimen/top12"
+        android:layout_marginEnd="@dimen/end16"
+        android:text="계속 도전하기"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:background="@drawable/greenbtn"
+        android:textColor="@color/White"
+        android:textSize="@dimen/text14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnStop" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/notStop"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:text="30분 후에 다시오기"
+        android:id="@+id/comeback"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/top24"
+        android:fontFamily="@font/nexon_normal"
+        android:textSize="@dimen/text14"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

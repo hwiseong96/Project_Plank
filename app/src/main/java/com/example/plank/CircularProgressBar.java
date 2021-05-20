@@ -24,7 +24,7 @@ public class CircularProgressBar extends View {
     private final float mStartAngle = -90;      // Always start from top (default is: "3 o'clock on a watch.")
     private float mSweepAngle = 0;              // How long to sweep from mStartAngle
     private float mMaxSweepAngle = 360;         // Max degrees to sweep = full circle
-    private int mStrokeWidth = (int) getResources().getDimension(R.dimen.circleWidth);              // Width of outline
+    int mStrokeWidth = (int) getResources().getDimension(R.dimen.circleWidth);              // Width of outline
     private int mAnimationDuration = 1000;       // Animation duration for progress change
     int mMaxProgress = 10;             // Max progress to use
     private boolean mDrawText = false;           // Set to true if progress text should be drawn
@@ -49,6 +49,9 @@ public class CircularProgressBar extends View {
 
     public void CircularProgressBar(int max){
         this.mMaxProgress = max;
+    }
+    public void CircularWidth(int max){
+        this.mStrokeWidth = max;
     }
 
     @Override

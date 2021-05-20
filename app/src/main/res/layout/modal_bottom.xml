@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/start24"
+        android:layout_marginTop="@dimen/top24"
+        android:fontFamily="@font/nexonlv1gothicregular"
+        android:text="1일차"
+        android:textFontWeight="700"
+        android:textSize="@dimen/text18"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="@dimen/width52"
+        android:layout_height="@dimen/height28"
+        android:layout_marginStart="@dimen/start24.5"
+        android:layout_marginTop="@dimen/top36"
+        android:background="@drawable/seconditem"
+        android:fontFamily="@font/nexon_normal"
+        android:gravity="center"
+        android:paddingTop="@dimen/ptop5"
+        android:paddingBottom="@dimen/ptop5"
+        android:text="30초"
+        android:textSize="@dimen/text12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+    <TextView
+        android:id="@+id/tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height28"
+        android:layout_marginStart="@dimen/start19"
+        android:layout_marginTop="@dimen/top36"
+        android:fontFamily="@font/nexon_normal"
+        android:gravity="center"
+        android:text="사이드 플랭크"
+        android:textSize="@dimen/text15"
+        app:layout_constraintStart_toEndOf="@id/tv2"
+        app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+    <TextView
+        android:id="@+id/tv4"
+        android:layout_width="@dimen/width52"
+        android:layout_height="@dimen/height28"
+        android:layout_marginStart="@dimen/start24.5"
+        android:background="@drawable/seconditem"
+        android:fontFamily="@font/nexon_normal"
+        android:layout_marginTop="@dimen/top28"
+        android:gravity="center"
+        android:paddingTop="@dimen/ptop5"
+        android:paddingBottom="@dimen/ptop5"
+        android:text="30초"
+        android:textSize="@dimen/text12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv2" />
+
+    <TextView
+        android:id="@+id/tv5"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height28"
+        android:layout_marginStart="@dimen/start19"
+        android:fontFamily="@font/nexon_normal"
+        android:layout_marginTop="@dimen/top28"
+        android:gravity="center"
+        android:text="스탠다드 플랭크"
+        android:textSize="15dp"
+        app:layout_constraintStart_toEndOf="@id/tv4"
+        app:layout_constraintTop_toBottomOf="@+id/tv3" />
+
+    <Button
+        android:id="@+id/BDok"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height56"
+        android:layout_marginStart="@dimen/start16"
+        android:layout_marginTop="@dimen/top30"
+        android:layout_marginEnd="@dimen/end16"
+        android:layout_marginBottom="@dimen/bottom24"
+        android:background="@drawable/greenlinebtn"
+        android:elevation="0dp"
+        android:fontFamily="@font/nexonlv1gothicregular"
+        android:text="확인"
+        android:textFontWeight="700"
+        android:textSize="@dimen/text14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv4" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

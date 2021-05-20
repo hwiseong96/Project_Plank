@@ -4,11 +4,11 @@ public class DataHistory {
     int image, image2;
 
 
-    String month, day, nDay, plank1, plank2, memo, diffi;
+    String month, day, nDay, plank1, plank2, memo, diffi, ment;
     boolean clear;
 
 
-    DataHistory(String month, String day, String nDay, String plank1, String plank2, String memo, int image, int image2, Boolean clear, String diffi) {
+    DataHistory(String month, String day, String nDay, String plank1, String plank2, String memo, int image, int image2, Boolean clear, String diffi, String ment) {
         this.image = image;
         this.image2 = image2;
         this.day = day;
@@ -17,8 +17,17 @@ public class DataHistory {
         this.plank1 = plank1;
         this.plank2 = plank2;
         this.memo = memo;
-        this.clear =clear;
+        this.clear = clear;
         this.diffi = diffi;
+        this.ment = ment;
+    }
+
+    public String getMent() {
+        return ment;
+    }
+
+    public void setMent(String ment) {
+        this.ment = ment;
     }
 
     public String getDiffi() {
@@ -44,6 +53,7 @@ public class DataHistory {
     public void setClear(boolean clear) {
         this.clear = clear;
     }
+
     public int getImage() {
         return image;
     }

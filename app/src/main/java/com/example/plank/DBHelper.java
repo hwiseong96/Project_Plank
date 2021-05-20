@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 +"idx integer primary key autoincrement, "
                 +"memoData text, "//메모
                 +"intData integer, "//진행일
-                +"intData2 integer, "//진행 플랭크 번호
+                +"intData2 integer, "//진행 플랭크 번호 1-30
                 +"dateData date not null, "
                 +"boolData Integer not null default 1,"
                 +"boolData2 Integer not null default 1, "

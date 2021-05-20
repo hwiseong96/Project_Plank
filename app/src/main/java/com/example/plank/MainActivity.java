@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences("PrefTest", MODE_PRIVATE);
         sdf = new SimpleDateFormat("yyyy-M-d", Locale.getDefault());
 
+        //fab
         AndroidBug5497Workaround.assistActivity(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_launcher_background);
+        actionBar.setHomeAsUpIndicator(R.drawable.hamburger);
 
         vp = findViewById(R.id.viewpager);
         adapter = new VPAdapter(getSupportFragmentManager());
@@ -165,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -193,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.bug:
                 break;
+
         }
     }
     @Override

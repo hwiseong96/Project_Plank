@@ -25,7 +25,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
@@ -40,13 +39,14 @@ public class HistoryFragment extends Fragment {
     private SimpleDateFormat sdf;
     private NestedScrollView nestedScrollView;
     private SQLiteDatabase db;
-    private String diffi, plank;
+    private String diffi, plank, ment;
     final int NOW = 1;
     final int CONTI = 2;
     private Button button;
     RecyclerView recyclerView;
     MainActivity activity;
     private SQLiteDatabase sqLiteDatabase;
+    private boolean bad;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,6 +100,7 @@ public class HistoryFragment extends Fragment {
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(getContext(), TimerReady.class);
                 if(button.getTag().equals("conti")){
+                    Log.d("asdf","asdf");
                     intent.putExtra("val",CONTI);
                     intent.putExtra("time2",timeData2);
                     intent.putExtra("name2",textData2);
@@ -122,6 +123,7 @@ public class HistoryFragment extends Fragment {
         DBHelper helper = new DBHelper(getContext());
         db = helper.getReadableDatabase();
         activity = (MainActivity) getActivity();
+
 
         nestedScrollView = view.findViewById(R.id.hisNS);
 
@@ -148,17 +150,6 @@ public class HistoryFragment extends Fragment {
             getData(Integer.toString(i));
         }
 
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getContext(), secondTimer.class);
-//                if (button.getTag().equals("conti")) {
-//                    startActivityForResult(intent, CONTI);
-//                } else {
-//                    startActivityForResult(intent, NOW);
-//                }
-//            }
-//        });
 
         return view;
     }
@@ -166,14 +157,12 @@ public class HistoryFragment extends Fragment {
     private void getData(String dDay) {
 
         boolean ClearData = false;
-
-        DBHelper2 helper2 = new DBHelper2(getContext());
-        SQLiteDatabase db2 = helper2.getReadableDatabase();
+        bad = true;
 
         String sql = "select * from HistoryTable where intData = " + dDay + "";
         Cursor c = db.rawQuery(sql, null);
 
-        c.moveToFirst();
+        c.moveToLast();//first??
 
         int dateData_pos = c.getColumnIndex("dateData");
         int memoData_pos = c.getColumnIndex("memoData");
@@ -199,6 +188,9 @@ public class HistoryFragment extends Fragment {
         String sql2 = "select * from DifficultTable where idx = ?";
         String[] arg = {plank};
 
+        DBHelper2 helper2 = new DBHelper2(getContext());
+        SQLiteDatabase db2 = helper2.getReadableDatabase();
+
         Cursor c2 = db2.rawQuery(sql2, arg);
 
         c2.moveToFirst();
@@ -221,28 +213,35 @@ public class HistoryFragment extends Fragment {
         }
 
         if(boolData == true){
-            check1 = R.drawable.ic_launcher_background;
+            check1 = R.drawable.check_3x;
             button.setTag("conti");
+            bad = false;
         }else if(boolData == false){
-            check1 = R.drawable.ic_launcher_foreground;
-
+            check1 = R.drawable.x_3x;
+            ment = "내일은.. 열심히 하실거죠? \uD83D\uDE05";
             if (today.equals(dateData)) {
-                check1 = R.drawable.circle;
+                check1 = R.drawable.clock_3x;
+                button.setTag("ready");
             }
         }
         if(boolData2 == true){
-            check2 = R.drawable.ic_launcher_background;
+            check2 = R.drawable.check_3x;
+            ment = "성공 \uD83C\uDF89";
             button.setTag("succ");
         }else if(boolData2 == false){
-            check2 = R.drawable.ic_launcher_foreground;
+            check2 = R.drawable.x_3x;
+            if(bad == false){
+                ment = "아쉽네요, 내일은 모두 끝내봐요!";
+            }
             if (today.equals(dateData)) {
-                check2 = R.drawable.circle;
+                check2 = R.drawable.clock_3x;
+                ment = "달릴 준비 되셨나요? \uD83D\uDC4A";
             }
         }
 
         diffi = pref.getString("난이도", "");
 
-        DataHistory data = new DataHistory(month + "월", day + "일", intData + "일차", plank1, plank2, memo, check1, check2, ClearData, diffi);
+        DataHistory data = new DataHistory(month + "월", day + "일", intData + "일차", plank1, plank2, memo, check1, check2, ClearData, diffi, ment);
 
         adapter.addItem(data);
         db2.close();
@@ -281,54 +280,54 @@ public class HistoryFragment extends Fragment {
         nestedScrollView.fullScroll(View.FOCUS_UP);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case NOW:
-                switch (resultCode) {
-                    case RESULT_OK:
-                        button.setTag(R.id.conti);
-                        String sql2 = "select * from HistoryTable";
-
-                        Cursor c = db.rawQuery(sql2,null);
-                        c.moveToLast();
-
-                        int intData2_pos = c.getColumnIndex("intData2");
-                        int intData2 = c.getInt(intData2_pos);
-
-                        String sql = "update HistoryTable set boolData = 0 where intData2 = " +intData2;
-                        db.execSQL(sql);
-                        activity.setFragment("refresh");
-                        break;
-                    default:
-                        break;
-
-                }
-                break;
-            case CONTI:
-                switch (resultCode) {
-                    case RESULT_OK:
-                        button.setTag(R.id.succ);
-                        String sql2 = "select * from HistoryTable";
-
-                        Cursor c = db.rawQuery(sql2,null);
-                        c.moveToLast();
-
-                        int intData2_pos = c.getColumnIndex("intData2");
-                        int intData2 = c.getInt(intData2_pos);
-
-                        String sql = "update HistoryTable set boolData2 = 0, ClearData = 0 where intData2 = " +intData2;
-                        db.execSQL(sql);
-                        activity.setFragment("refresh");
-                        db.close();
-                        sqLiteDatabase.close();
-                        break;
-                    default:
-                        break;
-
-                }
-                break;
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch (requestCode) {
+//            case NOW:
+//                switch (resultCode) {
+//                    case RESULT_OK:
+//                        button.setTag(R.id.conti);
+//                        String sql2 = "select * from HistoryTable";
+//
+//                        Cursor c = db.rawQuery(sql2,null);
+//                        c.moveToLast();
+//
+//                        int intData2_pos = c.getColumnIndex("intData2");
+//                        int intData2 = c.getInt(intData2_pos);
+//
+//                        String sql = "update HistoryTable set boolData = 0 where intData2 = " +intData2;
+//                        db.execSQL(sql);
+//                        activity.setFragment("refresh");
+//                        break;
+//                    default:
+//                        break;
+//
+//                }
+//                break;
+//            case CONTI:
+//                switch (resultCode) {
+//                    case RESULT_OK:
+//                        button.setTag(R.id.succ);
+//                        String sql2 = "select * from HistoryTable";
+//
+//                        Cursor c = db.rawQuery(sql2,null);
+//                        c.moveToLast();
+//
+//                        int intData2_pos = c.getColumnIndex("intData2");
+//                        int intData2 = c.getInt(intData2_pos);
+//
+//                        String sql = "update HistoryTable set boolData2 = 0, ClearData = 0 where intData2 = " +intData2;
+//                        db.execSQL(sql);
+//                        activity.setFragment("refresh");
+//                        db.close();
+//                        sqLiteDatabase.close();
+//                        break;
+//                    default:
+//                        break;
+//
+//                }
+//                break;
+//        }
+//    }
 }

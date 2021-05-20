@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ViewHolderHistory extends RecyclerView.ViewHolder {
 
     ImageView image, image2;
-    TextView month, day, nDay, plank1, plank2, memo, diffi;
+    TextView month, day, nDay, plank1, plank2, memo, diffi, ment;
     ConstraintLayout constraintLayout;
     Button button;
 
@@ -31,6 +31,7 @@ public class ViewHolderHistory extends RecyclerView.ViewHolder {
         memo = itemView.findViewById(R.id.memo);
         constraintLayout = itemView.findViewById(R.id.memoLayout);
         button = itemView.findViewById(R.id.hisBtn);
+        ment = itemView.findViewById(R.id.ment);
 
     }
 
@@ -42,13 +43,22 @@ public class ViewHolderHistory extends RecyclerView.ViewHolder {
         nDay.setText(data.getnDay());
         plank1.setText(data.getPlank1());
         plank2.setText(data.getPlank2());
-        diffi.setText(data.getDiffi() + "30일 챌린지 도전중");
+        diffi.setText(data.getDiffi() + "30일 챌린지 도전 중");
+        ment.setText(data.getMent());
         if(data.getMemo() == null || data.getMemo().length() == 0){
             constraintLayout.setVisibility(View.GONE);
         }else{
             memo.setText(data.getMemo());
         }
         if(data.isClear() == false){
+            button.setVisibility(View.GONE);
+        }
+        if (data.getPlank1().equals("휴식")) {
+            ment.setText("오늘은 휴식날! 내일 봐요 \uD83D\uDE09");
+            image.setVisibility(View.GONE);
+            image2.setVisibility(View.GONE);
+            plank1.setVisibility(View.GONE);
+            plank2.setVisibility(View.GONE);
             button.setVisibility(View.GONE);
         }
 

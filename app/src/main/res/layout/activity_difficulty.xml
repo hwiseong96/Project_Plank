@@ -4,72 +4,176 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/White"
     tools:context=".Difficulty">
 
     <TextView
         android:id="@+id/tv1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_height="@dimen/height56"
+        android:layout_marginTop="@dimen/top52"
         android:fontFamily="@font/nexonlv1gothicregular"
         android:gravity="center"
-        android:text="어떤 수준의 플랭크를\n30일동안 하시겠어요?"
+        android:text="30일동안 도전할\n 목표를 골라보세요!"
         android:textFontWeight="700"
-        android:textSize="20dp"
+        android:textSize="@dimen/text20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv2"
+        android:layout_marginTop="@dimen/top8"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/height20"
         android:fontFamily="@font/nexon_normal"
         android:gravity="center"
-        android:text="설명 추가 예정"
-        android:textSize="14dp"
+        android:text="나에게 맞는 수준을 골라보세요!"
+        android:textSize="@dimen/text14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv1" />
 
-
-    <Button
+    <LinearLayout
         android:id="@+id/Beginner"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_marginTop="52dp"
-        android:text="초급"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_height="@dimen/height120"
+        android:layout_marginStart="@dimen/start24"
+        android:layout_marginTop="@dimen/top42"
+        android:layout_marginEnd="@dimen/end24"
         android:background="@drawable/greenlinebtn"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv2" />
+        app:layout_constraintTop_toBottomOf="@id/tv2">
 
-    <Button
+        <com.example.plank.SquareImage
+            android:layout_width="@dimen/width120"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/start10"
+            android:layout_marginTop="@dimen/top13"
+            android:layout_marginBottom="@dimen/bottom13"
+            android:src="@drawable/onboarding_3x" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top20"
+                android:layout_marginStart="@dimen/start27"
+                android:fontFamily="@font/nexonlv1gothicregular"
+                android:textFontWeight="700"
+                android:textSize="@dimen/text20"
+                android:text="초급" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/start27"
+                android:layout_marginTop="@dimen/top9"
+                android:textSize="@dimen/text1413"
+                android:fontFamily="@font/nexon_normal"
+                android:text="플랭크 초보자를 위한\n 쉽고 짧은 운동 리스트! \n차근차근 레벨업해요" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/later"
         android:id="@+id/Intermediate"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:text="중급"
-        android:layout_marginStart="24dp"
-        android:background="@drawable/greenlinebtn"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="17dp"
+        android:layout_height="@dimen/height120"
+        android:layout_marginStart="@dimen/start24"
+        android:layout_marginTop="@dimen/top16"
+        android:layout_marginEnd="@dimen/end24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Beginner" />
+        app:layout_constraintTop_toBottomOf="@id/Beginner">
 
-    <Button
+        <com.example.plank.SquareImage
+            android:layout_width="@dimen/width120"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/start10"
+            android:layout_marginTop="@dimen/top13"
+            android:layout_marginBottom="@dimen/bottom13"
+            android:src="@drawable/onboarding_3x" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top20"
+                android:layout_marginStart="@dimen/start27"
+                android:fontFamily="@font/nexonlv1gothicregular"
+                android:textFontWeight="700"
+                android:textSize="@dimen/text20"
+                android:text="중급" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/start27"
+                android:layout_marginTop="@dimen/top9"
+                android:textSize="@dimen/text1413"
+                android:fontFamily="@font/nexon_normal"
+                android:text="추후 업데이트 될 예정\n입니다. 조금만 기다려\n주세요!" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/Advanced"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/greenlinebtn"
-        android:layout_marginTop="17dp"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:text="고급"
+        android:layout_height="@dimen/height120"
+        android:layout_marginStart="@dimen/start24"
+        android:layout_marginTop="@dimen/top16"
+        android:layout_marginEnd="@dimen/end24"
+        android:background="@drawable/later"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Intermediate" />
+        app:layout_constraintTop_toBottomOf="@id/Intermediate">
+
+        <com.example.plank.SquareImage
+            android:layout_width="@dimen/width120"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/start10"
+            android:layout_marginTop="@dimen/top13"
+            android:layout_marginBottom="@dimen/bottom13"
+            android:src="@drawable/onboarding_3x" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/top20"
+                android:layout_marginStart="@dimen/start27"
+                android:fontFamily="@font/nexonlv1gothicregular"
+                android:textFontWeight="700"
+                android:textSize="@dimen/text20"
+                android:text="고급" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/start27"
+                android:layout_marginTop="@dimen/top9"
+                android:textSize="@dimen/text1413"
+                android:fontFamily="@font/nexon_normal"
+                android:text="추후 업데이트 될 예정\n입니다. 조금만 기다려\n주세요!" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

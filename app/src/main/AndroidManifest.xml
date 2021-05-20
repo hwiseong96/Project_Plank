@@ -23,6 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data android:name="android.max_aspect" android:value="2.1" />
         <activity android:name=".Alarm" />
         <activity android:name=".secondTimer" />
         <activity android:name=".Difficulty" />
@@ -42,5 +43,6 @@
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.VIBLATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

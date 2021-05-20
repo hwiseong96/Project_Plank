@@ -5,14 +5,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -27,7 +29,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class Detail extends AppCompatActivity implements View.OnClickListener {
@@ -53,12 +54,13 @@ public class Detail extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        Toolbar mToolbar = findViewById(R.id.toolbar);
+        final Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        ActionBar actionBar = getSupportActionBar();
+        final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        findViewById(R.id.appbar).bringToFront();
 
         ProgressBar progressBar = findViewById(R.id.probar2);
         progressBar.setIndeterminate(false);
@@ -158,6 +160,8 @@ public class Detail extends AppCompatActivity implements View.OnClickListener {
                 dialog.setContentView(R.layout.modal_reset);
                 yes = dialog.findViewById(R.id.btnReset);
                 dialog.show();
+                Window window = dialog.getWindow();
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
 
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -181,6 +185,18 @@ public class Detail extends AppCompatActivity implements View.OnClickListener {
 
                         Intent intent = new Intent(view.getContext(), MainActivity.class);
                         startActivity(intent);
+
+                        Intent refresh = new Intent(getApplicationContext(), Detail.class);
+
+                        startActivity(refresh);
+                        finish();
+
+                        Toast toast = Toast.makeText(getApplicationContext(), "챌린지가 리셋되어 1일차로 변경되었습니다.", Toast.LENGTH_SHORT);
+                        View view2 = toast.getView();
+                        view2.setBackgroundResource(R.drawable.blackbtn);
+                        TextView text = (TextView) view2.findViewById(android.R.id.message);
+                        text.setTextColor(ContextCompat.getColor(getApplicationContext(),R.color.White));
+                        toast.show();
 
                         dialog.dismiss();
                     }
@@ -221,7 +237,6 @@ public class Detail extends AppCompatActivity implements View.OnClickListener {
             //b[i].setText((i + 1) + "일차");
             b[i].setTag(i);
             b[i].setOnClickListener(this);
-
 
         }
 
@@ -279,7 +294,7 @@ public class Detail extends AppCompatActivity implements View.OnClickListener {
                 int position = (Integer)view.getTag();
 
                 final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(Detail.this);
-                bottomSheetDialog.setContentView(R.layout.bottom_modal);
+                bottomSheetDialog.setContentView(R.layout.modal_bottom);
 
                 tv1 = bottomSheetDialog.findViewById(R.id.tv1);
                 tv2 = bottomSheetDialog.findViewById(R.id.tv2);
@@ -290,9 +305,9 @@ public class Detail extends AppCompatActivity implements View.OnClickListener {
                 bottomSheetDialog.show();
 
                 tv1.setText((position+1)+"일차");
-                tv2.setText(table[position][2]);
+                tv2.setText(table[position][2] + "초");
                 tv3.setText(table[position][0]);
-                tv4.setText(table[position][3]);
+                tv4.setText(table[position][3]+"초");
                 tv5.setText(table[position][1]);
                 ok.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -8,10 +8,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
@@ -21,6 +26,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.InputType;
@@ -42,17 +48,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
-
-import static android.app.Activity.RESULT_OK;
-
 
 public class TodayFragment extends Fragment {
 
     private static final String TAG1 = "1";
     private View view;
-    private TextView textView, textView2, plank1, plank2, second, second2;
+    private TextView textView, textView2, plank1, plank2, second, second2, total;
     private EditText editText, editText2;
     private NestedScrollView nestedScrollView;
     private SoftKeyboard softKeyboard;
@@ -75,6 +77,7 @@ public class TodayFragment extends Fragment {
     String dateData;
     private Dialog dialog2;
     Button asdd;
+
     public TodayFragment() {
 
     }
@@ -122,8 +125,10 @@ public class TodayFragment extends Fragment {
         textView.setText(pro + "일차 도전 중");
         textView2 = view.findViewById(R.id.chall);
         textView2.setText(diffi + " 30일 챌린지");
+
         second = view.findViewById(R.id.second);
         second2 = view.findViewById(R.id.second2);
+        total = view.findViewById(R.id.total);
 
         imageView = view.findViewById(R.id.iv1);
         imageView2 = view.findViewById(R.id.iv2);
@@ -135,7 +140,7 @@ public class TodayFragment extends Fragment {
         plank2 = view.findViewById(R.id.pl2);
         constraintLayout = view.findViewById(R.id.s);
 
-        now.setText(pro + "일차 운동 시작하기");
+        now.setText(pro + "일차 운동 시작하기\uD83D\uDC4A");
 
         DBHelper helper = new DBHelper(getContext());
         db = helper.getReadableDatabase();
@@ -152,20 +157,50 @@ public class TodayFragment extends Fragment {
         Boolean boolData = (c.getInt(boolData_pos)==0);
         int boolData2_pos = c.getColumnIndex("boolData2");
         Boolean boolData2 = (c.getInt(boolData2_pos)==0);
+        int dateData_pos = c.getColumnIndex("dateData");
+        dateData = c.getString(dateData_pos);
+
+        int memoData_pos = c.getColumnIndex("memoData");
+        String memoData = c.getString(memoData_pos);
+        if(memoData != null){
+            editText.setText(memoData);
+        }
+
+        DBHelper2 helper3 =new DBHelper2(getContext());
+        SQLiteDatabase db3 = helper3.getReadableDatabase();
+
+        String sql3 = "select * from DifficultTable where idx = "+intData2;
+        Cursor c3 = db3.rawQuery(sql3,null );
+
+        c3.moveToLast();
+        int timeData_pos = c3.getColumnIndex("timeData");
+        int timeData2_pos = c3.getColumnIndex("timeData2");
+        int textData_pos= c3.getColumnIndex("textData");
+        int textData2_pos= c3.getColumnIndex("textData2");
+
+        final int timeData = c3.getInt(timeData_pos);
+        final int timeData2 = c3.getInt(timeData2_pos);
+        final String textData = c3.getString(textData_pos);
+        final String textData2 = c3.getString(textData2_pos);
+
+        second.setText(timeData + "초");
+        second2.setText(timeData2 + "초");
+        total.setText(timeData + timeData2+"초");
 
         if (boolData == true) {
-            imageView.setImageResource(R.drawable.ic_launcher_background);
+            imageView.setImageResource(R.drawable.check_3x);
             second.setBackgroundResource(R.drawable.seconditem2);
             second.setTextColor(ContextCompat.getColor(getContext(),R.color.Green));
             now.setTag("conti");
-            now.setText(pro + "일차 운동 계속하기");
+            now.setText(pro + "일차 운동 계속하기\uD83D\uDC49");
         }
         if(boolData2 == true){
-            imageView2.setImageResource(R.drawable.ic_launcher_background);
+            imageView2.setImageResource(R.drawable.check_3x);
             second2.setBackgroundResource(R.drawable.seconditem2);
             second2.setTextColor(ContextCompat.getColor(getContext(),R.color.Green));
             now.setTag("succ");
-            now.setText(pro + "일차 운동 성공! 내일 또 봐요");
+            now.setText(pro + "일차 운동 성공! 내일 또 봐요\uD83D\uDC4D");
+            now.setTextColor(Color.parseColor("#707C97"));
             now.setBackgroundResource(R.drawable.planksuccess);
             now.setEnabled(false);
         }
@@ -178,17 +213,6 @@ public class TodayFragment extends Fragment {
             editText.setShowSoftInputOnFocus(false);
         } else {
         }
-
-        int dateData_pos = c.getColumnIndex("dateData");
-        dateData = c.getString(dateData_pos);
-        asdd = view.findViewById(R.id.asdd);
-
-        asdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               Log.d("asdd",dateData);
-            }
-        });
 
         ll = view.findViewById(R.id.ll);
         InputMethodManager controlManager = (InputMethodManager) getActivity().getSystemService(Service.INPUT_METHOD_SERVICE);
@@ -231,8 +255,12 @@ public class TodayFragment extends Fragment {
                                 String memo = editText2.getText() + "";
 
                                 editText.setText(memo);
-                                Toast.makeText(getContext(), "오늘의 메모가 저장되었습니다!", Toast.LENGTH_SHORT).show();
-                                //Toast.makeText(getContext(), "오늘의 메모가 저장되었습니다!", Toast.LENGTH_SHORT).show();
+                                Toast toast = Toast.makeText(getContext(), "오늘의 메모가 저장되었습니다!", Toast.LENGTH_SHORT);
+                                View view2 = toast.getView();
+                                view2.setBackgroundResource(R.drawable.blackbtn);
+                                TextView text = (TextView) view2.findViewById(android.R.id.message);
+                                text.setTextColor(ContextCompat.getColor(getContext(),R.color.White));
+                                toast.show();
                                 dbSave(memo);
                                 activity.setFragment("refresh");
 
@@ -251,22 +279,6 @@ public class TodayFragment extends Fragment {
             }
         });
 
-        DBHelper2 helper3 =new DBHelper2(getContext());
-        SQLiteDatabase db3 = helper3.getReadableDatabase();
-
-        String sql3 = "select * from DifficultTable where idx = "+intData2;
-        Cursor c3 = db3.rawQuery(sql3,null );
-
-        c3.moveToLast();
-        int timeData_pos = c3.getColumnIndex("timeData");
-        int timeData2_pos = c3.getColumnIndex("timeData2");
-        int textData_pos= c3.getColumnIndex("textData");
-        int textData2_pos= c3.getColumnIndex("textData2");
-
-        final int timeData = c3.getInt(timeData_pos);
-        final int timeData2 = c3.getInt(timeData2_pos);
-        final String textData = c3.getString(textData_pos);
-        final String textData2 = c3.getString(textData2_pos);
 
         now.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -274,7 +286,6 @@ public class TodayFragment extends Fragment {
                 //Intent intent = new Intent(getContext(), secondTimer.class);
                 Intent intent = new Intent(getContext(), TimerReady.class);
                 if(now.getTag().equals("conti")){
-
                     intent.putExtra("val",CONTI);
                     intent.putExtra("time2",timeData2);
                     intent.putExtra("name2",textData2);
@@ -292,47 +303,6 @@ public class TodayFragment extends Fragment {
         });
         return view;
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        switch (requestCode) {
-//            case NOW:
-//                switch (resultCode) {
-//                    case RESULT_OK:
-//                        imageView.setImageResource(R.drawable.ic_launcher_background);
-//                        //now.setTag("conti");
-//                        //now.setText(pro + "일차 운동 계속하기");
-//                        String sql = "update HistoryTable set boolData = 0 where intData2 = " +intData2;
-//                        db.execSQL(sql);
-//                        Toast.makeText(getContext(), "bbbbbbbbbbbbbbb", Toast.LENGTH_SHORT).show();
-//                        activity.setFragment("refresh");
-//                        break;
-//                    default:
-//                        break;
-//
-//                }
-//                break;
-//            case CONTI:
-//                switch (resultCode) {
-//                    case RESULT_OK:
-//                        //now.setBackground(ContextCompat.getDrawable(getContext(),R.drawable.planksuccess));
-//                        //now.setTag("succ");
-//                        //now.setText(pro + "일차 운동 성공! 내일 또 봐요");
-//                        //now.setEnabled(false);
-//                        String sql = "update HistoryTable set boolData2 = 0, ClearData = 0 where intData2 = " +intData2;
-//                        db.execSQL(sql);
-//                        activity.setFragment("refresh");
-//                        break;
-//                    default:
-//                        break;
-//
-//                }
-//                break;
-//        }
-//
-//    }
 
     @Override
     public void onDestroy() {
@@ -401,12 +371,29 @@ public class TodayFragment extends Fragment {
         textData2 = c2.getString(textData_pos2);
 
         plank1.setText(textData);
-        if (textData2 == null) {
+
+        if(textData.equals("휴식")){
+            now.setTag("휴식");
+            now.setBackgroundResource(R.drawable.planksuccess);
+            now.setEnabled(false);
+            DBHelper helper = new DBHelper(getContext());
+            SQLiteDatabase db = helper.getReadableDatabase();
+
+            date = sdf.format(new Date());
+            String sql = "update HistoryTable set ClearData = ? where dateData = ?";
+            String[] args = {"0", date};
+
+            db.execSQL(sql, args);
+            db.close();
+            constraintLayout.setVisibility(View.GONE);
+        }else if (textData2 == null) {
             constraintLayout.setVisibility(View.GONE);
         } else {
             constraintLayout.setVisibility(View.VISIBLE);
             plank2.setText(textData2);
         }
+
+
         db2.close();
 
     }
